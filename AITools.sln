@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{F9161BA0-1E4F-4164-81DC-49FD52CC1E39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.Chat.Copilot", "client\AI.Chat.Copilot\AI.Chat.Copilot.csproj", "{25BF5BA2-ACB6-4126-B64B-1610C90ACFF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{64524FE5-F872-492C-A7BF-5405D3F88F7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Domain", "src\AI.Chat.Copilot.Domain\AI.Chat.Copilot.Domain.csproj", "{72534194-8D88-4DFE-B97B-489D824B64D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Infrastructure", "src\AI.Chat.Copilot.Infrastructure\AI.Chat.Copilot.Infrastructure.csproj", "{0653C296-EF17-4646-AF43-3D41CF820618}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Application", "src\AI.Chat.Copilot.Application\AI.Chat.Copilot.Application.csproj", "{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25BF5BA2-ACB6-4126-B64B-1610C90ACFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25BF5BA2-ACB6-4126-B64B-1610C90ACFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25BF5BA2-ACB6-4126-B64B-1610C90ACFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25BF5BA2-ACB6-4126-B64B-1610C90ACFF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72534194-8D88-4DFE-B97B-489D824B64D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72534194-8D88-4DFE-B97B-489D824B64D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72534194-8D88-4DFE-B97B-489D824B64D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72534194-8D88-4DFE-B97B-489D824B64D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0653C296-EF17-4646-AF43-3D41CF820618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0653C296-EF17-4646-AF43-3D41CF820618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0653C296-EF17-4646-AF43-3D41CF820618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0653C296-EF17-4646-AF43-3D41CF820618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{25BF5BA2-ACB6-4126-B64B-1610C90ACFF0} = {F9161BA0-1E4F-4164-81DC-49FD52CC1E39}
+		{72534194-8D88-4DFE-B97B-489D824B64D7} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
+		{0653C296-EF17-4646-AF43-3D41CF820618} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
+		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07882CEE-72C9-4161-8E54-40BB5C0D0259}
+	EndGlobalSection
+EndGlobal

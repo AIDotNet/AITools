@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AI.Chat.Copilot.AppMenu"
+			 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+			 xmlns:local="clr-namespace:AI.Chat.Copilot;assembly=AI.Chat.Copilot"
+			
+			 xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Controls/SideMenu.axaml"></ResourceInclude>
+				<ResourceInclude Source="/Controls/SideMenuItem.axaml"></ResourceInclude>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<local:SideMenu Padding="0,10,0,0">
+			<local:SideMenu.Items >
+				<local:SideMenuItem Header="会话">
+					<local:SideMenuItem.Icon>
+						<materialIcons:MaterialIcon Kind="MessageOutline" Width="25" Height="25"/>
+					</local:SideMenuItem.Icon>
+					<local:SideMenuItem.PageContent>
+						<local:ChatList Margin="2"></local:ChatList>
+					</local:SideMenuItem.PageContent>
+				</local:SideMenuItem>
+				<local:SideMenuItem Header="应用">
+					<local:SideMenuItem.Icon>
+						<materialIcons:MaterialIcon Kind="GamepadCircleOutline" Width="25" Height="25"/>
+					</local:SideMenuItem.Icon>
+					<local:SideMenuItem.PageContent>
+						<TextBlock Margin="200" Text="Statistics"></TextBlock>
+					</local:SideMenuItem.PageContent>
+				</local:SideMenuItem>
+				<local:SideMenuItem Header="设置">
+					<local:SideMenuItem.Icon>
+						<materialIcons:MaterialIcon Kind="CogOutline" Width="25" Height="25"/>
+					</local:SideMenuItem.Icon>
+					<local:SideMenuItem.PageContent>
+						<TextBlock Margin="200" Text="Statistics"></TextBlock>
+					</local:SideMenuItem.PageContent>
+				</local:SideMenuItem>
+			</local:SideMenu.Items>
+		</local:SideMenu>
+</UserControl>

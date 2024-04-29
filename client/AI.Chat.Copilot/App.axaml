@@ -1,0 +1,19 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AI.Chat.Copilot.App"
+             xmlns:local="using:AI.Chat.Copilot"
+			 xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             RequestedThemeVariant="Light">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+		<sukiUi:SukiTheme ThemeColor="Blue"  />
+		<materialIcons:MaterialIconStyles />
+		<StyleInclude Source="avares://ShowMeTheXaml.Avalonia/XamlDisplay.xaml"/>
+	</Application.Styles>
+</Application>
