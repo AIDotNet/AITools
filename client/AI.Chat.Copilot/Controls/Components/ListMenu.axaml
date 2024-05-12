@@ -14,41 +14,9 @@
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
 		<Setter Property="Template">
 			<ControlTemplate>
-				<SplitView DisplayMode="CompactInline"
-                           IsPaneOpen="{TemplateBinding IsMenuExpanded}"
-                           OpenPaneLength="150">
-					<SplitView.Pane>
 						<Border>
-							<Grid Background="Transparent">
-								<suki:GlassCard Name="Glass"
-                                                BorderThickness="0"
-                                                CornerRadius="0" />
+							<Grid>
 								<DockPanel>
-									<!--<Button Name="PART_ListbarToggleButton"
-																			   Margin="7"
-																			   HorizontalAlignment="Right"
-																			   VerticalAlignment="Top"
-																			   Classes="Basic"
-																			   DockPanel.Dock="Top">
-										<Panel>
-											<PathIcon Name="PART_ExpandIcon"
-                                                      Width="12"
-                                                      Height="12"
-                                                      Data="{x:Static content:Icons.ChevronLeft}"
-                                                      Foreground="{DynamicResource SukiText}">
-												<PathIcon.Transitions>
-													<Transitions>
-														<TransformOperationsTransition Property="RenderTransform" Duration="{StaticResource MediumAnimationDuration}" />
-													</Transitions>
-												</PathIcon.Transitions>
-											</PathIcon>
-										</Panel>
-									</Button>-->
-									<Grid MinHeight="{TemplateBinding HeaderMinHeight}"
-                                          DockPanel.Dock="Top"
-                                          IsVisible="{TemplateBinding IsMenuExpanded}">
-										
-									</Grid>
 									<ContentControl Margin="0,0,0,12"
                                                     Content="{TemplateBinding FooterContent}"
                                                     DockPanel.Dock="Bottom"
@@ -76,20 +44,11 @@
 								</DockPanel>
 							</Grid>
 						</Border>
-					</SplitView.Pane>
-					<Border Name="ContentBorder"
-                            Margin="0,0,0,0"
-                            Background="{DynamicResource SukiBackground}"
-                            BorderBrush="{DynamicResource SukiBorderBrush}"
-                            BorderThickness="0,0,0,0">
-						<suki:SukiTransitioningContentControl Name="PART_TransitioningContentControl" />
-					</Border>
-				</SplitView>
 			</ControlTemplate>
 		</Setter>
-		<Style Selector="^[IsMenuExpanded=False] /template/ PathIcon#PART_ExpandIcon">
+		<!--<Style Selector="^[IsMenuExpanded=False] /template/ PathIcon#PART_ExpandIcon">
 			<Setter Property="RenderTransform" Value="rotate(-180deg)" />
-		</Style>
+		</Style>-->
 	</ControlTheme>
 	<ControlTheme x:Key="{x:Type controls:ListMenu}"
                   BasedOn="{StaticResource ListMenuStyle}"

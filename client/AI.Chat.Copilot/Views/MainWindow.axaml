@@ -5,15 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 	    xmlns:local="clr-namespace:AI.Chat.Copilot;assembly=AI.Chat.Copilot"
+		xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
+		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AI.Chat.Copilot.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="AI.Chat.Copilot">
+        Icon="/Assets/default-app.png"
+        Title="AITools"
+		TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+ExtendClientAreaToDecorationsHint="True"
+		WindowStartupLocation="CenterScreen"		 
+		suki:SukiHost.ToastLimit="4"
+        suki:SukiHost.ToastLocation="BottomRight">
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-	<local:AppMenu></local:AppMenu>
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Controls/Components/SideMenu.axaml"></ResourceInclude>
+				<ResourceInclude Source="/Controls/Components/SideMenuItem.axaml"></ResourceInclude>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+	<Panel>
+		<local:SideMenu Padding="0,10,0,0" x:Name="Menu" SelectionChanged="SideMenu_SelectionChanged" SelectedItem="{Binding SelectMenu}" ItemsSource="{Binding AppMenus}">
+		<local:SideMenu.ItemTemplate>
+			<DataTemplate>
+				<local:SideMenuItem Header="{Binding Title}">
+					<local:SideMenuItem.Icon>
+						<materialIcons:MaterialIcon Kind="{Binding Icon}" Width="25" Height="25"/>
+					</local:SideMenuItem.Icon>
+					
+				</local:SideMenuItem>
+			</DataTemplate>
+		</local:SideMenu.ItemTemplate>
+	</local:SideMenu>
+	</Panel>
 </suki:SukiWindow>

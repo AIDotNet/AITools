@@ -13,6 +13,10 @@
 	<AvaloniaResource Include="**\*.xaml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\default-app.png" />
+  </ItemGroup>
+
 
 
   <ItemGroup>
@@ -24,13 +28,18 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.10" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.1.9" />
-    <PackageReference Include="ShowMeTheXaml.Avalonia" Version="1.4.1" />
-    <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" Version="1.4.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.2" />
     <PackageReference Include="SukiUI" Version="6.0.0-beta4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AI.Chat.Copilot.Application\AI.Chat.Copilot.Application.csproj" />
+    <ProjectReference Include="..\..\src\AI.Chat.Copilot.Infrastructure\AI.Chat.Copilot.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

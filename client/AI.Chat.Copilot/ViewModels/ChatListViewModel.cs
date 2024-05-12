@@ -1,5 +1,4 @@
 ﻿using AI.Chat.Copilot.Domain.Models;
-using AI.Chat.Copilot.Models;
 using Avalonia;
 using ReactiveUI;
 using System;
@@ -21,11 +20,11 @@ namespace AI.Chat.Copilot.ViewModels
             Apps = new();
             AppChats = new();
         }
-        public ObservableCollection<AppChatDto> AppChats { get; set; }
-        public ObservableCollection<AIAppsDto> Apps { get; set; }
+        public ObservableCollection<AppChat> AppChats { get; set; }
+        public ObservableCollection<AIApps> Apps { get; set; }
 
-        private AppChatDto? _selectItem;
-        public AppChatDto? SelectItem
+        private AppChat? _selectItem;
+        public AppChat? SelectItem
         {
             get => _selectItem;
             set => this.RaiseAndSetIfChanged(ref _selectItem,value);

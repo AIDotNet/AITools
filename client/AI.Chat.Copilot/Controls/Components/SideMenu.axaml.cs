@@ -10,6 +10,7 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive;
 using Avalonia.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AI.Chat.Copilot;
 
@@ -23,8 +24,6 @@ public class SideMenu : SelectingItemsControl
         get => GetValue(IsMenuExpandedProperty);
         set => SetValue(IsMenuExpandedProperty, value);
     }
-
-
 
     public static readonly StyledProperty<double> HeaderMinHeightProperty =
         AvaloniaProperty.Register<SideMenu, double>(nameof(HeaderMinHeight));
@@ -62,7 +61,6 @@ public class SideMenu : SelectingItemsControl
     {
         SelectionMode = SelectionMode.Single | SelectionMode.AlwaysSelected;
     }
-
 
     private void MenuExpandedClicked()
     {
@@ -111,6 +109,7 @@ public class SideMenu : SelectingItemsControl
                     contentControl.Content = obj switch
                     {
                         SideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
+                        AppMenu appMenu => App.ServiceProvider!.GetRequiredService(appMenu.UseControlType),
                         _ => obj
                     };
                 })

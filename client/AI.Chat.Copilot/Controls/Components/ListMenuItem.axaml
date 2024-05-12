@@ -7,49 +7,48 @@
 	<ControlTheme x:Key="ListMenuItemStyle" TargetType="controls:ListMenuItem">
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Border Name="PART_Border"
-                        MinWidth="85"
-                        Margin="15,2"
+					<Border Name="PART_Border"
                         Padding="30,15,15,15"
                         Background="{DynamicResource SukiPrimaryColor0}"
-                        CornerRadius="{DynamicResource MediumCornerRadius}">
-					<Border.Transitions>
-						<Transitions>
-							<BrushTransition Property="Background" Duration="0:0:0.35" />
-							<ThicknessTransition Property="Padding" Duration="0:0:0.35" />
-						</Transitions>
-					</Border.Transitions>
-					<Panel>
-						<DockPanel Name="PART_NormalDisplay" LastChildFill="True">
-							<DockPanel.Resources />
+                        CornerRadius="{DynamicResource SmallCornerRadius}"
+						Margin="2"
+						>
+						<Border.Transitions>
+							<Transitions>
+								<BrushTransition Property="Background" Duration="0:0:0.35" />
+								<ThicknessTransition Property="Padding" Duration="0:0:0.35" />
+							</Transitions>
+						</Border.Transitions>
+						<Panel>
+							<DockPanel Name="PART_NormalDisplay" LastChildFill="True">
+								<DockPanel.Resources />
+								<ContentControl Name="PART_Icon"
+												Width="24"
+												Height="24"
+												Content="{TemplateBinding Icon}"
+												DockPanel.Dock="Left">
+									<ContentControl.Transitions>
+										<Transitions>
+											<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25" />
+											<DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+										</Transitions>
+									</ContentControl.Transitions>
+								</ContentControl>
+								<Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly">
+									<TextBlock Name="PART_Header"
+                                           
+											   VerticalAlignment="Center"
+											   FontSize="20"
+											   IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:ListMenu}}}"
+											   Text="{TemplateBinding Header}" />
+								</Viewbox>
+							</DockPanel>
+							<ContentPresenter Name="PART_AltDisplay"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}" />
 
-							<ContentControl Name="PART_Icon"
-                                            Width="24"
-                                            Height="24"
-                                            Content="{TemplateBinding Icon}"
-                                            DockPanel.Dock="Left">
-								<ContentControl.Transitions>
-									<Transitions>
-										<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25" />
-										<DoubleTransition Property="Opacity" Duration="0:0:0.3" />
-									</Transitions>
-								</ContentControl.Transitions>
-							</ContentControl>
-							<Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly">
-								<TextBlock Name="PART_Header"
-                                           Margin="15,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="20"
-                                           IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:ListMenu}}}"
-                                           Text="{TemplateBinding Header}" />
-							</Viewbox>
-						</DockPanel>
-						<ContentPresenter Name="PART_AltDisplay"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
-
-					</Panel>
-				</Border>
+						</Panel>
+					</Border>
 			</ControlTemplate>
 		</Setter>
 		<Style Selector="^:pointerover">

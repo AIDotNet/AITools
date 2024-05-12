@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.Chat.Copilot", "client\A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{64524FE5-F872-492C-A7BF-5405D3F88F7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Domain", "src\AI.Chat.Copilot.Domain\AI.Chat.Copilot.Domain.csproj", "{72534194-8D88-4DFE-B97B-489D824B64D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.Chat.Copilot.Domain", "src\AI.Chat.Copilot.Domain\AI.Chat.Copilot.Domain.csproj", "{72534194-8D88-4DFE-B97B-489D824B64D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Infrastructure", "src\AI.Chat.Copilot.Infrastructure\AI.Chat.Copilot.Infrastructure.csproj", "{0653C296-EF17-4646-AF43-3D41CF820618}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.Chat.Copilot.Infrastructure", "src\AI.Chat.Copilot.Infrastructure\AI.Chat.Copilot.Infrastructure.csproj", "{0653C296-EF17-4646-AF43-3D41CF820618}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Application", "src\AI.Chat.Copilot.Application\AI.Chat.Copilot.Application.csproj", "{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.Chat.Copilot.Application", "src\AI.Chat.Copilot.Application\AI.Chat.Copilot.Application.csproj", "{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Chat.Copilot.Domain.Shared", "src\AI.Chat.Copilot.Domain.Shared\AI.Chat.Copilot.Domain.Shared.csproj", "{92771D8B-6539-4DDE-9755-365DB205D055}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92771D8B-6539-4DDE-9755-365DB205D055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92771D8B-6539-4DDE-9755-365DB205D055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92771D8B-6539-4DDE-9755-365DB205D055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92771D8B-6539-4DDE-9755-365DB205D055}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{72534194-8D88-4DFE-B97B-489D824B64D7} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
 		{0653C296-EF17-4646-AF43-3D41CF820618} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
 		{B8D9E272-EEC9-45B2-8309-7FE701A05EDD} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
+		{92771D8B-6539-4DDE-9755-365DB205D055} = {64524FE5-F872-492C-A7BF-5405D3F88F7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07882CEE-72C9-4161-8E54-40BB5C0D0259}

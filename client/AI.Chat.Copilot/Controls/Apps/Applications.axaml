@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AI.Chat.Copilot.Applications"
+			 xmlns:vm="using:AI.Chat.Copilot.ViewModels"
+			 x:DataType="vm:ApplicationsViewModel"
+			 xmlns:sk="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:local="using:AI.Chat.Copilot.Resources">
+	<UserControl.Styles>
+		<Style Selector="ListBoxItem">
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Padding" Value="4,2" />
+			<Setter Property="Template">
+				<ControlTemplate>
+						<Border Name="BorderBasicStyle"
+													Margin="30 20"
+													Padding="8,4"
+													CornerRadius="10"
+													BorderThickness="1"
+													BorderBrush="BlueViolet">
+							<DockPanel>
+								<ContentPresenter Name="PART_ContentPresenter"
+												  Margin="0,0,0,0"
+												  Padding="{TemplateBinding Padding}"
+												  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+												  Background="Transparent"
+												  BorderBrush="Transparent"
+												  BorderThickness="{TemplateBinding BorderThickness}"
+												  Content="{TemplateBinding Content}"
+												  ContentTemplate="{TemplateBinding ContentTemplate}"
+												  CornerRadius="{TemplateBinding CornerRadius}" />
+
+							</DockPanel>
+						</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
+	<UserControl.Resources>
+		<local:AIModelTagVisibilityConverter x:Key="AIModelTagVisibilityConverter" />
+	</UserControl.Resources>
+	<DockPanel LastChildFill="True">
+		<DockPanel.Transitions>
+			<Transitions>
+				<DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+			</Transitions>
+		</DockPanel.Transitions>
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="10">
+				<TextBox Watermark="应用搜索" Width="200" Height="50" Text="{Binding SearchText,Mode=TwoWay}">
+				</TextBox>
+			   <Button Content="搜索" Command="{Binding  SearchCommand}" Classes="Flat"  Height="40" Margin="0,0,10,0" Cursor="Hand"></Button>
+			   <Button Content="新建" Command="{Binding CreateAppCommand}" Classes="Flat"  Height="40" Cursor="Hand"></Button>
+		</StackPanel>
+		<StackPanel>
+			<Border Margin="10,0,10,0" BorderThickness="0,0,0,1" BorderBrush="LightBlue">
+			</Border>
+			<ListBox ItemsSource="{Binding Apps}" SelectedItem="{Binding SelectApp}"
+	  Background="Transparent" >
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Grid Width="200" MaxHeight="200">
+							<Grid.RowDefinitions >
+								<RowDefinition Height="*"></RowDefinition>
+								<RowDefinition MinHeight="130"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+								<RowDefinition Height="*"></RowDefinition>
+							</Grid.RowDefinitions>
+							<DockPanel Grid.Row="0" LastChildFill="False" Margin="0,5,0,5">
+								<DockPanel.Transitions>
+									<Transitions>
+										<DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+									</Transitions>
+								</DockPanel.Transitions>
+								<StackPanel DockPanel.Dock="Left"  Orientation="Horizontal"  VerticalAlignment="Center" >
+									<Image Height="20" Width="20" Source="/Assets/default-app.png" Margin="0,0,10,0"/>
+									<TextBlock Text="{Binding Name}"></TextBlock>
+								</StackPanel>
+								<Button Cursor="Hand" BorderThickness="0" Padding="0" DockPanel.Dock="Right">
+									<materialIcons:MaterialIcon Kind="DeleteForeverOutline" Width="25" Height="20"/>
+								</Button>
+							</DockPanel>
+							
+							<StackPanel Grid.Row="1">
+								<Border BorderThickness="0,1,0,0" BorderBrush="LightBlue"></Border>
+								<ScrollViewer>
+									<TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Description}">
+									</TextBlock>
+								</ScrollViewer>
+								
+							</StackPanel>
+							<Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="LightBlue" Margin="0,0,0,5"></Border>
+							<StackPanel Grid.Row="3" Orientation="Horizontal">
+								<Border Margin="0,0,10,0" BorderThickness="1" BorderBrush="BlueViolet" CornerRadius="2"  Padding="5 2" >
+									<TextBlock IsVisible="{Binding AIModelType, Converter={StaticResource AIModelTagVisibilityConverter} }"  Text="{Binding AIModelType}" Foreground="#486860"></TextBlock>
+								</Border>
+								<Border  BorderThickness="1" BorderBrush="#6B69D6" CornerRadius="2" Padding="5 2">
+								<TextBlock IsVisible="{Binding ModelId, Converter={StaticResource AIModelTagVisibilityConverter} }"  Text="{Binding ModelId}" Foreground="#6B69D6"></TextBlock>
+								</Border>
+							</StackPanel>
+						</Grid>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+			</ListBox>
+		</StackPanel>
+	</DockPanel>
+	
+</UserControl>

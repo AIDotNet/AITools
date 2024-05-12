@@ -1,4 +1,4 @@
-﻿using AI.Chat.Copilot.Models;
+﻿using AI.Chat.Copilot.Domain.Models;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Metadata;
@@ -19,9 +19,9 @@ namespace AI.Chat.Copilot.DataTemplates
         {
             string? key =  null;
 
-            if (param is ChatHistory chat)
+            if (param is AppChatHistories chat)
             {
-                key = chat.Role;
+                key = chat.RoleName;
             }
             if (key is null)
             {
@@ -32,10 +32,10 @@ namespace AI.Chat.Copilot.DataTemplates
 
         public bool Match(object? data)
         {
-            if(data is ChatHistory chat)
+            if(data is AppChatHistories chat)
             {
-                return  !string.IsNullOrEmpty(chat.Role)           
-                       && AvailableTemplates.ContainsKey(chat.Role);
+                return  !string.IsNullOrEmpty(chat.RoleName)           
+                       && AvailableTemplates.ContainsKey(chat.RoleName);
             }
             return false;
         }

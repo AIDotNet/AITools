@@ -1,4 +1,4 @@
-﻿using AI.Chat.Copilot.Models;
+﻿using AI.Chat.Copilot.Domain.Models;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ namespace AI.Chat.Copilot.ViewModels
     {
         public ChatViewModel()
         {
-            _chaHistories = new ObservableCollection<ChatHistory>();
+            _chaHistories = new ObservableCollection<AppChatHistories>();
         }
-        private ObservableCollection<ChatHistory> _chaHistories;
-        public ObservableCollection<ChatHistory> ChatHistories
+        private ObservableCollection<AppChatHistories> _chaHistories;
+        public ObservableCollection<AppChatHistories> ChatHistories
         {
             get { return _chaHistories; }
             set { _chaHistories = this.RaiseAndSetIfChanged(ref _chaHistories, value); }

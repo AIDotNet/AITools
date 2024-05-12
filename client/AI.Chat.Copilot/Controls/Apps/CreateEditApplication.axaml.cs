@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AI.Chat.Copilot;
 
-public partial class AppMenu : UserControl
+public partial class CreateEditApplication : UserControl
 {
-    public AppMenu()
+    public CreateEditApplication()
     {
         InitializeComponent();
     }

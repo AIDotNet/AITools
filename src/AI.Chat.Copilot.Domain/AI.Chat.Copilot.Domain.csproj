@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AI.Chat.Copilot.Domain.Shared\AI.Chat.Copilot.Domain.Shared.csproj" />
+	  <PackageReference Include="TanvirArjel.EFCore.GenericRepository" Version="6.0.4" />
+	  <PackageReference Include="TanvirArjel.EFCore.QueryRepository" Version="1.5.3" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
-using ShowMeTheXaml;
 
 namespace AI.Chat.Copilot
 {
@@ -20,7 +19,6 @@ namespace AI.Chat.Copilot
                 .UsePlatformDetect()
                 .WithInterFont()
                 .LogToTrace()
-                .UseReactiveUI()
-                .UseXamlDisplay();
+                .UseReactiveUI();
     }
 }

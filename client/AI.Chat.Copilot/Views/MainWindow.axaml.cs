@@ -9,5 +9,10 @@ namespace AI.Chat.Copilot.Views
         {
             InitializeComponent();
         }
+
+        private void SideMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

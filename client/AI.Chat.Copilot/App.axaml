@@ -14,6 +14,5 @@
     <Application.Styles>
 		<sukiUi:SukiTheme ThemeColor="Blue"  />
 		<materialIcons:MaterialIconStyles />
-		<StyleInclude Source="avares://ShowMeTheXaml.Avalonia/XamlDisplay.xaml"/>
 	</Application.Styles>
 </Application>

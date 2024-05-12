@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AI.Chat.Copilot.Models
+namespace AI.Chat.Copilot.Domain.Models
 {
-    public class AIAppsDto
+    public class GlobalSettings
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public float MyProperty { get; set; }
     }
 }

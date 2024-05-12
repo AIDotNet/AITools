@@ -1,4 +1,4 @@
-using AI.Chat.Copilot.Models;
+using AI.Chat.Copilot.Domain.Models;
 using AI.Chat.Copilot.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -15,19 +15,19 @@ public partial class ChatList : UserControl
         InitializeComponent();
 #if DEBUG
         DataContext ??= new ChatListViewModel();
-        VM!.Apps.Add(new AIAppsDto
+        VM!.Apps.Add(new AIApps
         {
           Id = 1,
           Name = "应用1"
         });
-        VM!.AppChats.Add(new Models.AppChatDto
+        VM!.AppChats.Add(new AppChat
         {
              Id = 1,
              AppId = 1,
               CreateTime = DateTime.Now,
                Title = "测试标题1"
         });
-        VM!.AppChats.Add(new Models.AppChatDto
+        VM!.AppChats.Add(new AppChat
         {
             Id = 2,
             AppId = 1,

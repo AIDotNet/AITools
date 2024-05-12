@@ -89,32 +89,32 @@ public class ListMenu : SelectingItemsControl
         //    MenuExpandedClicked();
 
 
-        if (e.NameScope.Get<Grid>("PART_Spacer") is { } spacer)
-        {
-            spacer.IsVisible = IsSpacerVisible;
-            var menuObservable = this.GetObservable(IsMenuExpandedProperty)
-                .Select(_ => Unit.Default);
+        //if (e.NameScope.Get<Grid>("PART_Spacer") is { } spacer)
+        //{
+        //    spacer.IsVisible = IsSpacerVisible;
+        //    var menuObservable = this.GetObservable(IsMenuExpandedProperty)
+        //        .Select(_ => Unit.Default);
 
-            _subscriptionDisposable = menuObservable
+        //    _subscriptionDisposable = menuObservable
 
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe(_ => spacer.IsVisible = IsSpacerVisible);
-        }
+        //        .ObserveOn(new AvaloniaSynchronizationContext())
+        //        .Subscribe(_ => spacer.IsVisible = IsSpacerVisible);
+        //}
 
-        if (e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl") is { } contentControl)
-        {
-            _contentDisposable = this.GetObservable(SelectedItemProperty)
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Do(obj =>
-                {
-                    contentControl.Content = obj switch
-                    {
-                        ListMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
-                        _ => obj
-                    };
-                })
-                .Subscribe();
-        }
+        //if (e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl") is { } contentControl)
+        //{
+        //    _contentDisposable = this.GetObservable(SelectedItemProperty)
+        //        .ObserveOn(new AvaloniaSynchronizationContext())
+        //        .Do(obj =>
+        //        {
+        //            contentControl.Content = obj switch
+        //            {
+        //                ListMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
+        //                _ => obj
+        //            };
+        //        })
+        //        .Subscribe();
+        //}
 
     }
 
