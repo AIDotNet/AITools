@@ -1,12 +1,14 @@
 ﻿
 using AI.Chat.Copilot.Application;
 using AI.Chat.Copilot.Domain.Models;
+using AI.Chat.Copilot.Models;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using DynamicData;
 using Microsoft.Extensions.DependencyInjection;
 using Nito.AsyncEx;
 using ReactiveUI;
+using SukiUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +22,6 @@ namespace AI.Chat.Copilot.ViewModels
 {
     public class ApplicationsViewModel : ViewModelBase
     {
-
         private ObservableCollection<AIApps>? _apps;
         public ObservableCollection<AIApps>? Apps
         {
@@ -49,14 +50,12 @@ namespace AI.Chat.Copilot.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
-        public ReactiveCommand<Unit, UserControl> CreateAppCommand { get; }
+        public ReactiveCommand<Unit, Unit> CreateEditAppCommand { get; }
         public ApplicationsViewModel()
         {
             _apps = new ObservableCollection<AIApps>();
             SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, this.WhenAnyValue(x => x.SearchText, query => !string.IsNullOrWhiteSpace(query)));
-            CreateAppCommand = ReactiveCommand.Create<UserControl>(() => {
-                return new CreateEditApplication();
-            });
+            CreateEditAppCommand = ReactiveCommand.Create(ShowDialog);
             Task.Delay(10).ContinueWith(_ => AsyncContext.Run(SearchAsync));
         }
 
@@ -71,6 +70,16 @@ namespace AI.Chat.Copilot.ViewModels
                     Apps.AddRange(result);
                 });
             } 
+        }
+        private void ShowDialog()
+        {
+            SukiHost.ShowDialog(new CreateEditApplication()
+            {
+                DataContext = new CreateEditApplicationViewModel()
+                {
+                    Model = SelectApp ?? new AIApps()
+                }
+            },allowBackgroundClose: true);
         }
     }
 }

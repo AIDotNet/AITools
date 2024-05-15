@@ -11,6 +11,7 @@ using ReactiveUI;
 using System.Reactive;
 using System.Threading.Tasks;
 using SukiUI.Controls;
+using Avalonia.Controls;
 
 namespace AI.Chat.Copilot
 {
@@ -33,6 +34,7 @@ namespace AI.Chat.Copilot
             services.AddSingleton<ChatList>();
             services.AddSingleton<Applications>();
             services.AddSingleton<GlobalSettings>();
+            services.AddSingleton<CreateEditApplication>();
             services.AddEFCoreRepository();
             services.AddApplicationService();
             ServiceProvider = services.BuildServiceProvider();

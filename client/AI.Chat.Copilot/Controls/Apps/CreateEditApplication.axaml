@@ -3,6 +3,77 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AI.Chat.Copilot.CreateEditApplication">
-  Welcome to Avalonia!
+             x:Class="AI.Chat.Copilot.CreateEditApplication"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:vm="using:AI.Chat.Copilot.ViewModels"
+			 x:DataType="vm:CreateEditApplicationViewModel" >
+	<ScrollViewer>
+		<StackPanel Margin="20" HorizontalAlignment="Center">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<Label Grid.Row="0" Grid.Column="0" Content="应用标题" VerticalContentAlignment="Center" />
+				<TextBox  Grid.Row="0" Grid.Column="1" Width="300" Text="{Binding Model.Name,Mode=TwoWay}"></TextBox>
+
+				<Label Grid.Row="1" Grid.Column="0" Content="描述" VerticalContentAlignment="Center" />
+				<TextBox Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" MinHeight="100" Text="{Binding Model.Description,Mode=TwoWay}" VerticalContentAlignment="Top"></TextBox>
+
+				<Label Grid.Row="2" Grid.Column="0" Content="AI类别" VerticalContentAlignment="Center" />
+				<ComboBox  Grid.Row="2" Grid.Column="1"  PlaceholderText="选择AI模型" ItemsSource="{Binding  AITypes}" SelectedItem="{Binding Model.AIModelType,Mode=TwoWay}" Width="300">
+				</ComboBox>
+
+				<Label Grid.Row="3" Grid.Column="0" Content="会话模型" VerticalContentAlignment="Center" />
+				<ComboBox  Grid.Row="3" Grid.Column="1"  PlaceholderText="选择会话模型" ItemsSource="{Binding  ModelIds}" SelectedItem="{Binding Model.ModelId,Mode=TwoWay}" Width="300">
+				</ComboBox>
+
+				<Label Grid.Row="4" Grid.Column="0"  Content="提示词" VerticalContentAlignment="Center" />
+				<TextBox Grid.Row="4" Grid.Column="1" Width="300" TextWrapping="Wrap" MinHeight="150" VerticalContentAlignment="Top" Text="{Binding Model.Prompt,Mode=TwoWay}" ></TextBox>
+
+				<Label Grid.Row="5" Grid.Column="0"  Content="温度系数" VerticalContentAlignment="Center" />
+				<StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" >
+					<Slider  x:Name="sliderTemperature" IsSnapToTickEnabled="True" Maximum="100" Minimum="1" TickFrequency="1" Value="{Binding Model.Temperature,Mode=TwoWay}" Width="200"></Slider>
+					<TextBlock VerticalAlignment="Center" Text="{Binding #sliderTemperature.Value}" >
+					</TextBlock>
+					<materialIcons:MaterialIcon ToolTip.Tip="该值越大说明越准确" Kind="InformationOutline" Foreground="BlueViolet" Width="25" Height="20"/>
+				</StackPanel>
+
+				<Label Grid.Row="6" Grid.Column="0"  Content="最大回复Token" VerticalContentAlignment="Center" Margin="0,20,0,0"/>
+				<StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1"  Margin="0,20,0,0">
+					<Slider  x:Name="sliderMaxTokens" IsSnapToTickEnabled="True" Maximum="100" Minimum="1" TickFrequency="1" Value="{Binding Model.MaxTokens,Mode=TwoWay}" Width="200"></Slider>
+					<TextBlock VerticalAlignment="Center" Text="{Binding #sliderMaxTokens.Value}" >
+					</TextBlock>
+				</StackPanel>
+
+				<Label Grid.Row="7" Grid.Column="0"  Content="秘钥" VerticalContentAlignment="Center" Margin="0,20,0,0"/>
+				<TextBox Grid.Row="7" Grid.Column="1" Width="300" Text="{Binding Model.Secret,Mode=TwoWay}" PasswordChar="*"></TextBox>
+
+				<Label Grid.Row="8" Grid.Column="0"  Content="代理地址" VerticalContentAlignment="Center" Margin="0,20,0,0"/>
+				<StackPanel Orientation="Horizontal"  Grid.Row="8" Grid.Column="1"   Margin="0,20,0,0">
+					<TextBox Width="300"  VerticalContentAlignment="Top" Text="{Binding Model.ProxyHost,Mode=TwoWay}" PasswordChar="*"></TextBox>
+				</StackPanel>
+
+
+				<StackPanel Margin="0,20,0,0" Orientation="Horizontal" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" >
+					<Button Command="{Binding SaveCommand}" Content="确认" Width="80" Margin="0,0,10,0"/>
+					<Button Content="取消" Width="80"/>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+	</ScrollViewer>
+
 </UserControl>

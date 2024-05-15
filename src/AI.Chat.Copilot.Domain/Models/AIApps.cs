@@ -15,7 +15,7 @@ namespace AI.Chat.Copilot.Domain.Models
         /// <summary>
         /// Name of the AI App
         /// </summary>
-        public required string Name { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Description of the AI App
         /// </summary>

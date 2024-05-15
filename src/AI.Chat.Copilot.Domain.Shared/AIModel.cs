@@ -16,6 +16,12 @@ namespace AI.Chat.Copilot.Domain.Shared
 
     public static class AIModelManager
     {
+        public static List<AIModelType> AIModelTypes = new List<AIModelType> { 
+            AIModelType.OpenAI, 
+            AIModelType.AzureOpenAI, 
+            AIModelType.LLamaSharp, 
+            AIModelType.ChatGLM 
+        };
         public static List<string> AIModels = [ "gpt-3.5-turbo",
         "gpt-3.5-turbo-0125",
         "gpt-3.5-turbo-0301",

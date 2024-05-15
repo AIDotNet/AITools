@@ -38,8 +38,4 @@
     <ProjectReference Include="..\..\src\AI.Chat.Copilot.Infrastructure\AI.Chat.Copilot.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
