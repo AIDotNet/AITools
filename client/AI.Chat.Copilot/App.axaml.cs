@@ -42,8 +42,8 @@ namespace AI.Chat.Copilot
              DataContext = mainVm
             });
             services.AddSingleton<Index>();
-            services.AddSingleton<ChatList>();
-            services.AddSingleton<Applications>();
+            services.AddSingleton(_ => new Chat() { DataContext = new ChatViewModel() });
+            services.AddSingleton(_ => new Applications(new ApplicationsViewModel()));
             services.AddSingleton<GlobalSettings>();
             services.AddEFCoreRepository();
             services.AddApplicationService();

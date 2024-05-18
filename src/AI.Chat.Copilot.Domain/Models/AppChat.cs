@@ -11,7 +11,6 @@ namespace AI.Chat.Copilot.Domain.Models
     public class AppChat
     {
         public int Id { get; set; }
-        public int AppId { get; set; }
         public string Title { get; set; }
         public DateTime CreateTime { get; set; }
         public bool IsDeleted { get; set; }

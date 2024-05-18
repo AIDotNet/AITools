@@ -11,6 +11,7 @@ using System.Reactive.Linq;
 using System.Reactive;
 using Avalonia.Input;
 using Microsoft.Extensions.DependencyInjection;
+using AI.Chat.Copilot.ViewModels;
 
 namespace AI.Chat.Copilot;
 
@@ -120,7 +121,13 @@ public class SideMenu : SelectingItemsControl
     {
         if(sukiMenuPageContent is Type contentType)
         {
-            return App.ResolveControl(sukiMenuPageContent);
+            var obj =  App.ResolveControl(sukiMenuPageContent);
+            if(obj is Chat chat)
+            {
+                //TODO 其实这里可以用ReloadToken
+               _ = Dispatcher.UIThread.InvokeAsync(()=> ((ChatViewModel)chat.DataContext!).RefreshAppsAsync());
+            }
+            return obj;
         }
         return sukiMenuPageContent;
     }

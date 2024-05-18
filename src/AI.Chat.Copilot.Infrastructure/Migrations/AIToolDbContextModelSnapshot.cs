@@ -83,9 +83,6 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AppId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("timestamp");
 

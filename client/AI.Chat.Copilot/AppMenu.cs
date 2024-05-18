@@ -25,7 +25,7 @@ namespace AI.Chat.Copilot
         };
         public static SideMenuItem Chat() => new SideMenuItem
         {
-            PageContent = typeof(ChatList),
+            PageContent = typeof(Chat),
             Header = "会话",
             Icon = new MaterialIcon { Kind = MaterialIconKind.MessageOutline, Width = 25, Height = 25 },
         };

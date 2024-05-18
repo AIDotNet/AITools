@@ -14,6 +14,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaXaml Remove="Controls\Components\ListMenu.axaml" />
+    <AvaloniaXaml Remove="Controls\Components\ListMenuItem.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controls\Components\ListMenu.axaml.cs" />
+    <Compile Remove="Controls\Components\ListMenuItem.axaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\default-app.png" />
   </ItemGroup>
 
@@ -43,6 +53,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\Chat\Chat.axaml.cs">
+      <DependentUpon>Chat.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

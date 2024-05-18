@@ -14,18 +14,11 @@ namespace AI.Chat.Copilot;
 public partial class Applications : UserControl
 {
     private ApplicationsViewModel VM => (ApplicationsViewModel)DataContext!;
-    private bool _isLoaded;
     private UserControl CreateEditApplication => new CreateEditApplication();
-    public Applications()
+    public Applications(ApplicationsViewModel applicationsViewModel)
     {
         InitializeComponent();
-        if (!_isLoaded)
-        {
-           DataContext = new ApplicationsViewModel() { 
-          
-           };
-           _isLoaded = true;
-        }
+        DataContext = applicationsViewModel;
         //this.AttachedToVisualTree += OnAttachedToVisualTree;
     }
     //private void OnAttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)

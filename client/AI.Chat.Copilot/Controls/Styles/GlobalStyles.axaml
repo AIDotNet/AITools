@@ -11,4 +11,14 @@
 		<Setter Property="SelectionBrush" Value="LightBlue"></Setter>
 		<Setter Property="SelectionForegroundBrush" Value="Black"></Setter>
 	</Style>
+	<Style Selector="TextBox.chatTextBoxStyle">
+		<Setter Property="BorderThickness" Value="0"></Setter>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="IsReadOnly" Value="True"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
+		<Setter Property="Focusable" Value="False"/>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="SelectionBrush" Value="LightBlue"></Setter>
+		<Setter Property="SelectionForegroundBrush" Value="Black"></Setter>
+	</Style>
 </Styles>

@@ -15,7 +15,6 @@ namespace AI.Chat.Copilot.Infrastructure.Maps
         {
             builder.HasKey(x => x.Id);
             builder.Property(u => u.Id).ValueGeneratedOnAdd();
-            builder.Property(u => u.AppId).HasColumnType("integer");
             builder.Property(u => u.Title).IsRequired().HasColumnType("varchar(50)").IsUnicode();
             builder.Property(u=>u.CreateTime).IsRequired().HasColumnType("timestamp");
             builder.Property(u => u.IsDeleted).HasColumnType("boolean");

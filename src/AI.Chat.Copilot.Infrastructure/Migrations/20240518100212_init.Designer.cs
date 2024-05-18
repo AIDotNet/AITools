@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AI.Chat.Copilot.Infrastructure.Migrations
 {
     [DbContext(typeof(AIToolDbContext))]
-    [Migration("20240512093400_init")]
+    [Migration("20240518100212_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -85,9 +85,6 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AppId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("timestamp");

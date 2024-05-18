@@ -12,6 +12,7 @@ namespace AI.Chat.Copilot.Application
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
         {
             services.AddTransient<AIApplicationAppService>();
+            services.AddTransient<AppChatService>();
             return services;
         }
     }

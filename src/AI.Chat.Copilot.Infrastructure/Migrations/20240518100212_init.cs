@@ -58,7 +58,6 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AppId = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "varchar(50)", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "timestamp", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
