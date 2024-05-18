@@ -1,4 +1,5 @@
 ﻿using AI.Chat.Copilot.Domain.Shared;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AI.Chat.Copilot.Domain.Models
 {
+    [AddINotifyPropertyChangedInterface]
     public class AIApps
     {
         public int Id { get; set; }
@@ -24,8 +26,8 @@ namespace AI.Chat.Copilot.Domain.Models
         /// Prompt of the AI App
         /// </summary>
         public string? Prompt { get; set; }
-        public int Temperature { get; set; } = 50;
-        public int MaxTokens { get; set; } = 100;
+        public int Temperature { get; set; } = 70;
+        public int MaxTokens { get; set; } = 1024;
         /// <summary>
         /// AI模型
         /// </summary>

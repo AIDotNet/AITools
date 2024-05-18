@@ -46,11 +46,11 @@
 	</UserControl.Resources>
 	<Grid>
 		<DockPanel LastChildFill="True">
-			<DockPanel.Transitions>
+			<!--<DockPanel.Transitions>
 				<Transitions>
 					<DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
 				</Transitions>
-			</DockPanel.Transitions>
+			</DockPanel.Transitions>-->
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="10">
 				<TextBox Watermark="应用搜索" Width="200" Height="50" Text="{Binding SearchText,Mode=TwoWay}">
 				</TextBox>
@@ -60,11 +60,11 @@
 			<StackPanel>
 				<Border Margin="10,0,10,0" BorderThickness="0,0,0,1" BorderBrush="LightBlue">
 				</Border>
-				<ListBox ItemsSource="{Binding Apps}" SelectedItem="{Binding SelectApp}"
+				<ListBox ItemsSource="{Binding Apps,Mode=TwoWay}" SelectedItem="{Binding SelectApp,Mode=TwoWay}"
 		  Background="Transparent" >
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<Grid Width="200" MaxHeight="200">
+							<Grid Width="300" MaxHeight="300">
 								<Grid.RowDefinitions >
 									<RowDefinition Height="*"></RowDefinition>
 									<RowDefinition MinHeight="130"></RowDefinition>
@@ -79,17 +79,25 @@
 									</DockPanel.Transitions>
 									<StackPanel DockPanel.Dock="Left"  Orientation="Horizontal"  VerticalAlignment="Center" >
 										<Image Height="20" Width="20" Source="/Assets/default-app.png" Margin="0,0,10,0"/>
-										<TextBlock Text="{Binding Name}"></TextBlock>
+										<TextBlock Text="{Binding Name,Mode=TwoWay}"></TextBlock>
 									</StackPanel>
-									<Button Cursor="Hand" BorderThickness="0" Padding="0" DockPanel.Dock="Right">
-										<materialIcons:MaterialIcon Kind="DeleteForeverOutline" Width="25" Height="20"/>
-									</Button>
+									<StackPanel  DockPanel.Dock="Right" Orientation="Horizontal">
+										<Button Cursor="Hand" BorderThickness="0" Padding="0" Command="{Binding ((vm:ApplicationsViewModel)DataContext).CreateEditAppCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                >
+											<materialIcons:MaterialIcon Kind="PencilCircleOutline" Width="25" Height="20"/>
+										</Button>
+										<Button Cursor="Hand" BorderThickness="0" Padding="0" Command="{Binding ((vm:ApplicationsViewModel)DataContext).DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
+											<materialIcons:MaterialIcon Kind="DeleteForeverOutline" Width="25" Height="20"/>
+										</Button>
+									</StackPanel>
+
 								</DockPanel>
 
 								<StackPanel Grid.Row="1">
 									<Border BorderThickness="0,1,0,0" BorderBrush="LightBlue"></Border>
 									<ScrollViewer>
-										<TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Description}">
+										<TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Description,Mode=TwoWay}">
 										</TextBlock>
 									</ScrollViewer>
 
@@ -97,10 +105,10 @@
 								<Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="LightBlue" Margin="0,0,0,5"></Border>
 								<StackPanel Grid.Row="3" Orientation="Horizontal">
 									<Border Margin="0,0,10,0" BorderThickness="1" BorderBrush="BlueViolet" CornerRadius="2"  Padding="5 2" >
-										<TextBlock IsVisible="{Binding AIModelType, Converter={StaticResource AIModelTagVisibilityConverter} }"  Text="{Binding AIModelType}" Foreground="#486860"></TextBlock>
+										<TextBlock IsVisible="{Binding AIModelType, Mode=TwoWay,Converter={StaticResource AIModelTagVisibilityConverter} }"  Text="{Binding AIModelType}" Foreground="#486860"></TextBlock>
 									</Border>
 									<Border  BorderThickness="1" BorderBrush="#6B69D6" CornerRadius="2" Padding="5 2">
-										<TextBlock IsVisible="{Binding ModelId, Converter={StaticResource AIModelTagVisibilityConverter} }"  Text="{Binding ModelId}" Foreground="#6B69D6"></TextBlock>
+										<TextBlock IsVisible="{Binding ModelId,Mode=TwoWay, Converter={StaticResource AIModelTagVisibilityConverter} }"  Text="{Binding ModelId}" Foreground="#6B69D6"></TextBlock>
 									</Border>
 								</StackPanel>
 							</Grid>

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AI.Chat.Copilot.Domain.Shared\AI.Chat.Copilot.Domain.Shared.csproj" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 	  <PackageReference Include="TanvirArjel.EFCore.GenericRepository" Version="6.0.4" />
 	  <PackageReference Include="TanvirArjel.EFCore.QueryRepository" Version="1.5.3" />
   </ItemGroup>

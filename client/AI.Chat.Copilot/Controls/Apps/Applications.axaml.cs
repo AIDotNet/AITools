@@ -1,6 +1,5 @@
 using AI.Chat.Copilot.Application;
 using AI.Chat.Copilot.Domain.Models;
-using AI.Chat.Copilot.Models;
 using AI.Chat.Copilot.ViewModels;
 using Avalonia;
 using Avalonia.Controls;

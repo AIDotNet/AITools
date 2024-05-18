@@ -17,24 +17,34 @@ namespace AI.Chat.Copilot
 {
     public partial class App : Avalonia.Application
     {
-        public static IServiceProvider? ServiceProvider { get; private set; }
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static IServiceProvider ServiceProvider { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static IServiceScope ServiceScope => ServiceProvider.CreateScope();
+        public static object ResolveControl(object content)
+        {
+            if(content is Type type && (type.IsAssignableTo(typeof(UserControl)) || type.IsAssignableTo(typeof(Window))))
+            {
+                return ServiceProvider.GetRequiredService(type);
+            }
+            return content;
+        }
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
             IServiceCollection services = new ServiceCollection();
             var mainVm = new MainWindowViewModel
             {
-                AppMenus = [AppMenu.Index() ,AppMenu.Chat(), AppMenu.App(), AppMenu.GlobalSettings()]
+                AppMenuItems = [ AppMenu.Index() ,AppMenu.Chat(), AppMenu.App(), AppMenu.GlobalSettings()]
             };
             services.AddSingleton(_=> new MainWindow { 
              DataContext = mainVm
             });
-            services.AddSingleton(mainVm);
             services.AddSingleton<Index>();
             services.AddSingleton<ChatList>();
             services.AddSingleton<Applications>();
             services.AddSingleton<GlobalSettings>();
-            services.AddSingleton<CreateEditApplication>();
             services.AddEFCoreRepository();
             services.AddApplicationService();
             ServiceProvider = services.BuildServiceProvider();

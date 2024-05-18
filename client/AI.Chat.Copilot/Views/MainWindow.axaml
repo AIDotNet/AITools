@@ -7,6 +7,7 @@
 	    xmlns:local="clr-namespace:AI.Chat.Copilot;assembly=AI.Chat.Copilot"
 		xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
 		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+				 xmlns:resources ="using:AI.Chat.Copilot.Resources"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AI.Chat.Copilot.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -30,19 +31,10 @@ ExtendClientAreaToDecorationsHint="True"
 				<ResourceInclude Source="/Controls/Components/SideMenuItem.axaml"></ResourceInclude>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
+		<resources:AppMenuContentControlConverter x:Key="AppMenuContentControlConverter" />
 	</Window.Resources>
 	<Panel>
-		<local:SideMenu Padding="0,10,0,0" x:Name="Menu" SelectionChanged="SideMenu_SelectionChanged" SelectedItem="{Binding SelectMenu}" ItemsSource="{Binding AppMenus}">
-		<local:SideMenu.ItemTemplate>
-			<DataTemplate>
-				<local:SideMenuItem Header="{Binding Title}">
-					<local:SideMenuItem.Icon>
-						<materialIcons:MaterialIcon Kind="{Binding Icon}" Width="25" Height="25"/>
-					</local:SideMenuItem.Icon>
-					
-				</local:SideMenuItem>
-			</DataTemplate>
-		</local:SideMenu.ItemTemplate>
-	</local:SideMenu>
+		<local:SideMenu Padding="0,10,0,0" x:Name="Menu" SelectionChanged="SideMenu_SelectionChanged" ItemsSource="{Binding AppMenuItems}">
+		</local:SideMenu>
 	</Panel>
 </suki:SukiWindow>

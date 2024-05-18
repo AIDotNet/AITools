@@ -46,31 +46,29 @@
 
 				<Label Grid.Row="5" Grid.Column="0"  Content="温度系数" VerticalContentAlignment="Center" />
 				<StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" >
-					<Slider  x:Name="sliderTemperature" IsSnapToTickEnabled="True" Maximum="100" Minimum="1" TickFrequency="1" Value="{Binding Model.Temperature,Mode=TwoWay}" Width="200"></Slider>
-					<TextBlock VerticalAlignment="Center" Text="{Binding #sliderTemperature.Value}" >
-					</TextBlock>
-					<materialIcons:MaterialIcon ToolTip.Tip="该值越大说明越准确" Kind="InformationOutline" Foreground="BlueViolet" Width="25" Height="20"/>
+					<Slider  x:Name="sliderTemperature" IsSnapToTickEnabled="True" Maximum="100" Minimum="1" TickFrequency="10" Value="{Binding Model.Temperature,Mode=TwoWay}" Width="200"></Slider>
+					<TextBlock VerticalAlignment="Center" Text="{Binding #sliderTemperature.Value}" ></TextBlock>			
 				</StackPanel>
 
 				<Label Grid.Row="6" Grid.Column="0"  Content="最大回复Token" VerticalContentAlignment="Center" Margin="0,20,0,0"/>
 				<StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1"  Margin="0,20,0,0">
-					<Slider  x:Name="sliderMaxTokens" IsSnapToTickEnabled="True" Maximum="100" Minimum="1" TickFrequency="1" Value="{Binding Model.MaxTokens,Mode=TwoWay}" Width="200"></Slider>
+					<Slider  x:Name="sliderMaxTokens" IsSnapToTickEnabled="True" Maximum="4096" Minimum="100" TickFrequency="1" Value="{Binding Model.MaxTokens,Mode=TwoWay}" Width="200"></Slider>
 					<TextBlock VerticalAlignment="Center" Text="{Binding #sliderMaxTokens.Value}" >
 					</TextBlock>
 				</StackPanel>
 
 				<Label Grid.Row="7" Grid.Column="0"  Content="秘钥" VerticalContentAlignment="Center" Margin="0,20,0,0"/>
-				<TextBox Grid.Row="7" Grid.Column="1" Width="300" Text="{Binding Model.Secret,Mode=TwoWay}" PasswordChar="*"></TextBox>
+				<TextBox Grid.Row="7" Grid.Column="1" Width="300" Text="{Binding Model.Secret,Mode=TwoWay}" ></TextBox>
 
 				<Label Grid.Row="8" Grid.Column="0"  Content="代理地址" VerticalContentAlignment="Center" Margin="0,20,0,0"/>
 				<StackPanel Orientation="Horizontal"  Grid.Row="8" Grid.Column="1"   Margin="0,20,0,0">
-					<TextBox Width="300"  VerticalContentAlignment="Top" Text="{Binding Model.ProxyHost,Mode=TwoWay}" PasswordChar="*"></TextBox>
+					<TextBox Width="300"  VerticalContentAlignment="Top" Text="{Binding Model.ProxyHost,Mode=TwoWay}" ></TextBox>
 				</StackPanel>
 
 
 				<StackPanel Margin="0,20,0,0" Orientation="Horizontal" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" >
 					<Button Command="{Binding SaveCommand}" Content="确认" Width="80" Margin="0,0,10,0"/>
-					<Button Content="取消" Width="80"/>
+					<Button Content="取消" Width="80" Command="{Binding CancelCommand}" />
 				</StackPanel>
 			</Grid>
 		</StackPanel>

@@ -1,10 +1,11 @@
 ﻿
 using AI.Chat.Copilot.Application;
 using AI.Chat.Copilot.Domain.Models;
-using AI.Chat.Copilot.Models;
+using AI.Chat.Copilot.Views;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using DynamicData;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Nito.AsyncEx;
 using ReactiveUI;
@@ -50,36 +51,70 @@ namespace AI.Chat.Copilot.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
-        public ReactiveCommand<Unit, Unit> CreateEditAppCommand { get; }
+        public ReactiveCommand<AIApps, Unit> CreateEditAppCommand { get; }
+        public ReactiveCommand<AIApps, Unit> DeleteCommand { get; }
         public ApplicationsViewModel()
         {
             _apps = new ObservableCollection<AIApps>();
             SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, this.WhenAnyValue(x => x.SearchText, query => !string.IsNullOrWhiteSpace(query)));
-            CreateEditAppCommand = ReactiveCommand.Create(ShowDialog);
+            CreateEditAppCommand = ReactiveCommand.Create<AIApps>(ShowDialog);
+            DeleteCommand = ReactiveCommand.CreateFromTask<AIApps>(DeleteAsync);
             Task.Delay(10).ContinueWith(_ => AsyncContext.Run(SearchAsync));
         }
 
         private async Task SearchAsync()
         {
-          var result = await App.ServiceProvider!.GetRequiredService<AIApplicationAppService>().QueryAsync(SearchText!);
-          if(result != null)
+            using var service = App.ServiceScope.Resolve<AIApplicationAppService>();
+            var result = await service.Value.QueryAsync(SearchText!);
+            if (result != null)
             {
                 Dispatcher.UIThread.Invoke(() =>
                 {
                     Apps!.Clear();
                     Apps.AddRange(result);
                 });
-            } 
+            }
         }
-        private void ShowDialog()
+        private void ShowDialog(AIApps apps)
         {
-            SukiHost.ShowDialog(new CreateEditApplication()
+            SukiHost.ShowDialog(new CreateEditApplication
             {
                 DataContext = new CreateEditApplicationViewModel()
                 {
-                    Model = SelectApp ?? new AIApps()
+                    Model = apps?.Adapt<AIApps>() ?? new AIApps(),
+                    Callback = RefreshList
                 }
-            },allowBackgroundClose: true);
+            }, allowBackgroundClose: true);
+        }
+        private void RefreshList(AIApps data)
+        {
+            if(!Apps!.Any(u=>u.Id == data.Id))
+            {
+                Apps.Add(data);
+            }
+            else
+            {
+                var origin = Apps.FirstOrDefault(u => u.Id == data.Id);
+                origin.AIModelType = data.AIModelType;
+                origin.CreateTime = data.CreateTime;
+                origin.DeletedTime = data.DeletedTime;
+                origin.Description = data.Description;
+                origin.Id = data.Id;
+                origin.IsDeleted = data.IsDeleted;
+                origin.Name = data.Name;
+                origin.MaxTokens = data.MaxTokens;
+                origin.ModelId = data.ModelId;
+                origin.Prompt = data.Prompt;
+                origin.ProxyHost = data.ProxyHost;
+                origin.Secret = data.Secret;
+                origin.Temperature = data.Temperature;
+            }
+        }
+        private async Task DeleteAsync(AIApps apps)
+        {
+            using var service = App.ServiceScope.Resolve<AIApplicationAppService>();
+            await  service.Value.DeleteAsync(apps.Id);
+            Apps!.Remove(apps);
         }
     }
 }

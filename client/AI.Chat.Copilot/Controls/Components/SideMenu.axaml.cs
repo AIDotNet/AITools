@@ -108,8 +108,7 @@ public class SideMenu : SelectingItemsControl
                 {
                     contentControl.Content = obj switch
                     {
-                        SideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
-                        AppMenu appMenu => App.ServiceProvider!.GetRequiredService(appMenu.UseControlType),
+                        SideMenuItem { PageContent: { } sukiMenuPageContent } => ResolvePageContent(sukiMenuPageContent),
                         _ => obj
                     };
                 })
@@ -117,7 +116,14 @@ public class SideMenu : SelectingItemsControl
         }
 
     }
-
+    private object ResolvePageContent(object sukiMenuPageContent)
+    {
+        if(sukiMenuPageContent is Type contentType)
+        {
+            return App.ResolveControl(sukiMenuPageContent);
+        }
+        return sukiMenuPageContent;
+    }
     public bool UpdateSelectionFromPointerEvent(Control source)
     {
         return UpdateSelectionFromEventSource(source);
