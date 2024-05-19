@@ -21,7 +21,7 @@ namespace AI.Chat.Copilot
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static IServiceProvider ServiceProvider { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static IServiceScope ServiceScope => ServiceProvider.CreateScope();
+        public static DisposableScope ServiceScope => new DisposableScope(ServiceProvider.CreateScope());
         public static object ResolveControl(object content)
         {
             if(content is Type type && (type.IsAssignableTo(typeof(UserControl)) || type.IsAssignableTo(typeof(Window))))
@@ -51,7 +51,7 @@ namespace AI.Chat.Copilot
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
             RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
             {
-                SukiHost.ShowToast("系统运行异常", $"Unhandled task exception: {ex.Message}", TimeSpan.FromSeconds(20), () => Console.WriteLine("Toast clicked !"));
+                SukiHost.ShowToast("系统运行异常", $"Unhandled task exception: {ex.Message} {Environment.NewLine} {ex.InnerException?.Message}", TimeSpan.FromSeconds(20), () => Console.WriteLine(ex.Message));
             });
         }
         public override void OnFrameworkInitializationCompleted()

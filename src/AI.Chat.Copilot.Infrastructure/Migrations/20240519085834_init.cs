@@ -37,27 +37,26 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppChatHistories",
+                name: "AppChatMessage",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ChatId = table.Column<int>(type: "integer", nullable: false),
-                    RoleName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    ChatId = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Role = table.Column<string>(type: "varchar(50)", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "timestamp", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppChatHistories", x => x.Id);
+                    table.PrimaryKey("PK_AppChatMessage", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "AppChats",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(type: "varchar(50)", unicode: false, nullable: false),
                     Title = table.Column<string>(type: "varchar(50)", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "timestamp", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -76,7 +75,7 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
                 name: "AIApps");
 
             migrationBuilder.DropTable(
-                name: "AppChatHistories");
+                name: "AppChatMessage");
 
             migrationBuilder.DropTable(
                 name: "AppChats");

@@ -24,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\ai-1.jpg" />
+    <None Remove="Assets\ai.jpg" />
     <None Remove="Assets\default-app.png" />
+    <None Remove="Assets\GPT.png" />
   </ItemGroup>
 
 
@@ -38,6 +41,7 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.10" />
     <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Markdown.Avalonia" Version="11.0.3-a1" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.1.9" />
     <PackageReference Include="MessageBox.Avalonia" Version="3.1.5.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
@@ -52,13 +56,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Controls\Chat\Chat.axaml.cs">
       <DependentUpon>Chat.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

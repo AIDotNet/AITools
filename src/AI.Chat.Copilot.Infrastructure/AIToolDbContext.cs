@@ -14,7 +14,7 @@ namespace AI.Chat.Copilot.Infrastructure
     {
         public DbSet<AIApps> AIApps { get; set; }
         public DbSet<AppChat> AppChats { get; set; }
-        public DbSet<AppChatHistories> AppChatHistories { get; set; }
+        public DbSet<AppChatMessage> AppChatMessage { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -19,9 +19,9 @@ namespace AI.Chat.Copilot.DataTemplates
         {
             string? key =  null;
 
-            if (param is AppChatHistories chat)
+            if (param is AppChatMessage chat)
             {
-                key = chat.RoleName;
+                key = chat.Role;
             }
             if (key is null)
             {
@@ -32,10 +32,10 @@ namespace AI.Chat.Copilot.DataTemplates
 
         public bool Match(object? data)
         {
-            if(data is AppChatHistories chat)
+            if(data is AppChatMessage chat)
             {
-                return  !string.IsNullOrEmpty(chat.RoleName)           
-                       && AvailableTemplates.ContainsKey(chat.RoleName);
+                return  !string.IsNullOrEmpty(chat.Role)           
+                       && AvailableTemplates.ContainsKey(chat.Role);
             }
             return false;
         }

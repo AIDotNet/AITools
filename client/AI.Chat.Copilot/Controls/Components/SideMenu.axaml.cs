@@ -12,6 +12,7 @@ using System.Reactive;
 using Avalonia.Input;
 using Microsoft.Extensions.DependencyInjection;
 using AI.Chat.Copilot.ViewModels;
+using System.Threading.Tasks;
 
 namespace AI.Chat.Copilot;
 
@@ -125,7 +126,7 @@ public class SideMenu : SelectingItemsControl
             if(obj is Chat chat)
             {
                 //TODO 其实这里可以用ReloadToken
-               _ = Dispatcher.UIThread.InvokeAsync(()=> ((ChatViewModel)chat.DataContext!).RefreshAppsAsync());
+                _ =  Task.Run(()=>Dispatcher.UIThread.InvokeAsync(()=> ((ChatViewModel)chat.DataContext!).RefreshAppsAsync()));
             }
             return obj;
         }

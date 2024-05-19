@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AI.Chat.Copilot.Infrastructure.Migrations
 {
     [DbContext(typeof(AIToolDbContext))]
-    [Migration("20240518100212_init")]
+    [Migration("20240519085834_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -80,11 +80,9 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
 
             modelBuilder.Entity("AI.Chat.Copilot.Domain.Models.AppChat", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("timestamp");
@@ -105,7 +103,7 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
                     b.ToTable("AppChats");
                 });
 
-            modelBuilder.Entity("AI.Chat.Copilot.Domain.Models.AppChatHistories", b =>
+            modelBuilder.Entity("AI.Chat.Copilot.Domain.Models.AppChatMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,8 +111,9 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ChatId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ChatId")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -124,13 +123,13 @@ namespace AI.Chat.Copilot.Infrastructure.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("timestamp");
 
-                    b.Property<string>("RoleName")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppChatHistories");
+                    b.ToTable("AppChatMessage");
                 });
 #pragma warning restore 612, 618
         }

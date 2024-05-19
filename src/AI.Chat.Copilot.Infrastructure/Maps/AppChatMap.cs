@@ -14,7 +14,8 @@ namespace AI.Chat.Copilot.Infrastructure.Maps
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<AppChat> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(u => u.Id).ValueGeneratedOnAdd();
+            builder.Property(u => u.Id).ValueGeneratedNever();
+            builder.Property(u => u.Id).HasColumnType("varchar(50)").IsUnicode(false);
             builder.Property(u => u.Title).IsRequired().HasColumnType("varchar(50)").IsUnicode();
             builder.Property(u=>u.CreateTime).IsRequired().HasColumnType("timestamp");
             builder.Property(u => u.IsDeleted).HasColumnType("boolean");

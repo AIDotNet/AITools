@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AI.Chat.Copilot.Application.AIChatService;
+using AI.Chat.Copilot.Domain.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace AI.Chat.Copilot.Application
         {
             services.AddTransient<AIApplicationAppService>();
             services.AddTransient<AppChatService>();
+            services.AddKeyedScoped<IChatService, OpenAIChatService>(AIModelType.OpenAI);
             return services;
         }
     }

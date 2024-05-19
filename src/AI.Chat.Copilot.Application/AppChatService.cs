@@ -26,9 +26,15 @@ namespace AI.Chat.Copilot.Application
             return _repository.GetListAsync<AppChat>(false);
         }
 
-        public Task<List<AppChatHistories>> GetChatHistoriesAsync(long chatId)
+        public Task<List<AppChatMessage>> GetChatHistoriesAsync(string chatId)
         {
-           return  _repository.GetListAsync<AppChatHistories>(u=>u.ChatId == chatId,asNoTracking:false);
+           return  _repository.GetListAsync<AppChatMessage>(u=>u.ChatId == chatId,asNoTracking:false);
+        }
+
+        public async Task InsertChatMessageAsync(IEnumerable<AppChatMessage> messages)
+        {
+            await _repository.AddAsync<AppChatMessage>(messages);
+            await _repository.SaveChangesAsync();
         }
     }
 }

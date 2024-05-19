@@ -44,16 +44,16 @@ namespace AI.Chat.Copilot.ViewModels
         {
             try
             {
-                using var service = App.ServiceScope.Resolve<AIApplicationAppService>();
+                using var service = App.ServiceScope;
                 if (Model.Id == 0)
                 {
-                    await service.Value.InsertAsync(Model);
+                    await service.Resolve<AIApplicationAppService>().InsertAsync(Model);
                     CloseDialog();
                     Callback?.Invoke(Model);
                 }
                 else
                 {
-                    await service.Value.UpdateAsync(Model);
+                    await service.Resolve<AIApplicationAppService>().UpdateAsync(Model);
                     CloseDialog();
                     Callback?.Invoke(Model);
                 }

@@ -64,8 +64,8 @@ namespace AI.Chat.Copilot.ViewModels
 
         private async Task SearchAsync()
         {
-            using var service = App.ServiceScope.Resolve<AIApplicationAppService>();
-            var result = await service.Value.QueryAsync(SearchText!);
+            using var service = App.ServiceScope;
+            var result = await service.Resolve<AIApplicationAppService>().QueryAsync(SearchText!);
             if (result != null)
             {
                 Dispatcher.UIThread.Invoke(() =>
@@ -112,8 +112,8 @@ namespace AI.Chat.Copilot.ViewModels
         }
         private async Task DeleteAsync(AIApps apps)
         {
-            using var service = App.ServiceScope.Resolve<AIApplicationAppService>();
-            await  service.Value.DeleteAsync(apps.Id);
+            using var service = App.ServiceScope;
+            await  service.Resolve<AIApplicationAppService>().DeleteAsync(apps.Id);
             Apps!.Remove(apps);
         }
     }
