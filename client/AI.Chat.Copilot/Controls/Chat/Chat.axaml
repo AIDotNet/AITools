@@ -23,18 +23,9 @@
 						<Border  Grid.Column="0" Height="30" Width="30" CornerRadius="50" ClipToBounds="True" VerticalAlignment="Top">
 							<Image Source="/Assets/GPT.png"></Image>
 						</Border>
-						<!--<TextBox Grid.Column="1" Margin="10,0,0,0" MaxWidth="500" MinWidth="50"   CornerRadius="5" Padding="5" MinHeight="50" Background="AntiqueWhite" Text="{Binding Content}" Classes="chatTextBoxStyle">
-						</TextBox>-->
 						<sk:GlassCard Grid.Column="1" CornerRadius="12" Margin="10,0,0,0" MinWidth="50" MaxWidth="500" HorizontalAlignment="Left" Padding="10">
 							<Grid RowDefinitions="*,*">
-								<Button Grid.Row="0" Click="showcopied" Command="{Binding ((vm:ChatViewModel)DataContext).CopyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content}" Classes="Basic" HorizontalAlignment="Right" Margin="0,-10,-10,-5" Cursor="Hand">
-									<Button.Flyout >
-										<Flyout Placement="Top" ShowMode="TransientWithDismissOnPointerMoveAway">
-											<sk:GlassCard CornerRadius="8" Padding="20,10" Background="CadetBlue">
-												<TextBlock Foreground="{DynamicResource SukiLowText}" FontWeight="DemiBold"  Text="复制成功"></TextBlock>
-											</sk:GlassCard>
-										</Flyout>
-									</Button.Flyout>
+								<Button Grid.Row="0" Command="{Binding ((vm:ChatViewModel)DataContext).CopyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content}" Classes="Basic" HorizontalAlignment="Right" Margin="0,-10,-10,-5" Cursor="Hand">
 									<materialIcons:MaterialIcon Kind="ContentCopy" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
 								</Button>
 								<StackPanel Grid.Row="1">
@@ -43,19 +34,17 @@
 											<Style Selector=".Markdown_Avalonia_MarkdownViewer ctxt|CTextBlock">
 												<Style.Setters>
 													<Setter Property="SelectionBrush" Value="LightBlue"></Setter>
-													<Setter Property="FontSize"   Value="14" />
+													<Setter Property="FontSize"   Value="16" />
 													<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"></Setter>
 													<Setter Property="Margin"     Value="0,3" />
 												</Style.Setters>
 											</Style>
 											<Style Selector=".Markdown_Avalonia_MarkdownViewer TextBlock">
 												<Style.Setters>
-													<Setter Property="FontSize"   Value="14" />
+													<Setter Property="FontSize"   Value="16" />
 													<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"></Setter>
 												</Style.Setters>
 											</Style>
-
-
 											<Style Selector="ctxt|CTextBlock.Heading1">
 												<Setter Property="Foreground" Value="{DynamicResource SukiText}"/>
 												<Setter Property="Margin" Value="0,8"></Setter>
@@ -78,20 +67,15 @@
 											<Style Selector="ctxt|CTextBlock.Heading6">
 												<Setter Property="Foreground" Value="{DynamicResource SukiText}"/>
 											</Style>
-
 											<Style Selector="ctxt|CCode">
 												<Style.Setters>
-
 													<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"></Setter>
 													<Setter Property="BorderThickness"     Value="0"/>
 													<Setter Property="CornerRadius"     Value="7"/>
 													<Setter Property="Padding"             Value="5,5,5,1"/>
 													<Setter Property="Margin" Value="1,0"></Setter>
-
-
 												</Style.Setters>
 											</Style>
-
 											<Style Selector=".Markdown_Avalonia_MarkdownViewer ctxt|CCode">
 												<Style.Setters>
 													<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"></Setter>
@@ -100,10 +84,9 @@
 													<Setter Property="Background" Value="{DynamicResource SukiAccentColor5}" />
 												</Style.Setters>
 											</Style>
-
 											<Style Selector="Border.CodeBlock">
 												<Style.Setters>
-													<Setter Property="CornerRadius" Value="10" />
+													<Setter Property="CornerRadius"    Value="10" />
 													<Setter Property="BorderBrush"     Value="{DynamicResource SukiAccentColor5}"/>
 													<Setter Property="BorderThickness" Value="1"/>
 													<Setter Property="Padding" Value="12"></Setter>
@@ -111,14 +94,11 @@
 													<Setter Property="Background"      Value="{DynamicResource SukiAccentColor5}"/>
 												</Style.Setters>
 											</Style>
-
 											<Style Selector="TextBlock.CodeBlock">
 												<Style.Setters>
 													<Setter Property="Foreground"      Value="{DynamicResource SukiText}"/>
 												</Style.Setters>
 											</Style>
-
-
 											<Style Selector="AccessText">
 												<Style.Setters>
 													<Setter Property="Foreground"      Value="{DynamicResource SukiText}"/>
@@ -144,14 +124,12 @@
 										<Panel.Resources>
 											<Color x:Key="SukiPrimaryColor">#cf1322</Color>
 										</Panel.Resources>
-
-										<Button Click="stopgenclick" BorderThickness="0" Command="{Binding ((vm:ChatViewModel)DataContext).StopCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"  Margin="0,0,0,0" Classes="Basic Rounded" Cursor="Hand" >
+										<Button BorderThickness="0" Command="{Binding ((vm:ChatViewModel)DataContext).StopCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"  Margin="0,0,0,0" Classes="Basic Rounded" Cursor="Hand" >
 											<materialIcons:MaterialIcon Kind="Stop" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
 										</Button>
 									</Panel>
 								</StackPanel>
 							</Grid>
-							
 						</sk:GlassCard>
 					</Grid>
 				</StackPanel>
@@ -162,8 +140,15 @@
 						<Border Grid.Column="1" Height="30" Width="30" CornerRadius="50" ClipToBounds="True" VerticalAlignment="Top">
 							<Image Source="/Assets/default-user.png"></Image>
 						</Border>
-						<TextBox Grid.Column="0" Margin="0,0,10,0" MaxWidth="500" MinWidth="50"  CornerRadius="5" MinHeight="50" Background="LightGreen" Text="{Binding Content}" Classes="chatTextBoxStyle">
-						</TextBox>
+						<sk:GlassCard CornerRadius="12" Grid.Column="0" Margin="0,0,10,0" MaxWidth="500" MinWidth="50" Padding="5" HorizontalAlignment="Left">
+							<Grid RowDefinitions="*,*">
+								<Button Grid.Row="0" Command="{Binding ((vm:ChatViewModel)DataContext).CopyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content}" Classes="Basic" HorizontalAlignment="Left" Margin="0,0,10,-2" Cursor="Hand">
+									<materialIcons:MaterialIcon Kind="ContentCopy" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
+								</Button>
+								<SelectableTextBlock Grid.Row="1" Margin="10,0,10,10"  Text="{Binding Content}" Classes="chatTextBoxStyle">
+								</SelectableTextBlock>
+							</Grid>
+						</sk:GlassCard>
 					</Grid>
 				</StackPanel>
 			</DataTemplate>

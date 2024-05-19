@@ -31,29 +31,21 @@ public partial class Chat : UserControl
     private async void ListBox_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
     {
         VM!.Content = string.Empty;
-        if (!VM!.ChatHistoriesManager.ContainsKey(VM.SelectItemIndex))
+        if (!VM!.ChatHistoriesManager.ContainsKey(VM.SelectItem.Id))
         {
             if(!VM.SelectItem!.IsNew)
             {
                 using var service = App.ServiceScope;
                 var result = await service.Resolve<AppChatService>().GetChatHistoriesAsync(VM.SelectItem.Id);
-                VM!.ChatHistoriesManager.Add(VM.SelectItemIndex, new System.Collections.ObjectModel.ObservableCollection<AppChatMessage>(result));
-                VM!.ChatHistories = VM!.ChatHistoriesManager[VM!.SelectItemIndex];
+                VM!.ChatHistoriesManager.Add(VM.SelectItem.Id, new System.Collections.ObjectModel.ObservableCollection<AppChatMessage>(result));
+                VM!.ChatHistories = VM!.ChatHistoriesManager[VM!.SelectItem.Id];
                 scroll.ScrollToEnd();
             }
         }
-       
-    }
-    private void stopgenclick(object? sender, RoutedEventArgs e)
-    {
-        ((Button)sender).Animate<double>(OpacityProperty, 1, 0);
-    }
-    private void showcopied(object? sender, RoutedEventArgs e)
-    {
-        var ctl = sender as Control;
-        if (ctl != null)
+        else
         {
-            FlyoutBase.ShowAttachedFlyout(ctl);
-        }
+            VM!.ChatHistories = VM!.ChatHistoriesManager[VM!.SelectItem.Id];
+            scroll.ScrollToEnd();
+        } 
     }
 }

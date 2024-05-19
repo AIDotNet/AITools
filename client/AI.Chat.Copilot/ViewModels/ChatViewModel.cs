@@ -55,7 +55,7 @@ namespace AI.Chat.Copilot.ViewModels
                 }
             });
         }
-        public Dictionary<int, ObservableCollection<AppChatMessage>> ChatHistoriesManager { get; set; }
+        public Dictionary<string, ObservableCollection<AppChatMessage>> ChatHistoriesManager { get; set; }
         private ObservableCollection<AppChatMessage> _chaHistories;
         public ObservableCollection<AppChatMessage> ChatHistories
         {
@@ -146,7 +146,7 @@ namespace AI.Chat.Copilot.ViewModels
             SelectItemIndex = 0;
             SelectItem = chat;
             ChatHistories = new ObservableCollection<AppChatMessage>();
-            ChatHistoriesManager.Add(SelectItemIndex, ChatHistories);
+            ChatHistoriesManager.Add(SelectItem.Id, ChatHistories);
         }
 
         private async Task SendAsync(ScrollViewer scrollViewer)
@@ -218,7 +218,6 @@ namespace AI.Chat.Copilot.ViewModels
                 TopLevel.GetTopLevel(((ISingleViewApplicationLifetime)App.Current.ApplicationLifetime)
                     .MainView).Clipboard.SetTextAsync(message);
             }
-            //SukiHost.ShowToast("复制成功", "", TimeSpan.FromSeconds(2));
         }
     }
 }
