@@ -29,7 +29,7 @@
 									<materialIcons:MaterialIcon Kind="ContentCopy" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
 								</Button>
 								<StackPanel Grid.Row="1">
-									<mdxaml:MarkdownScrollViewer SelectionEnabled="True" Markdown="{Binding Content, Converter={StaticResource MC}}" >
+									<mdxaml:MarkdownScrollViewer SelectionEnabled="True" Markdown="{Binding Content, Converter={StaticResource MC}}" ScrollValue="" >
 										<mdxaml:MarkdownScrollViewer.Styles>
 											<Style Selector=".Markdown_Avalonia_MarkdownViewer ctxt|CTextBlock">
 												<Style.Setters>

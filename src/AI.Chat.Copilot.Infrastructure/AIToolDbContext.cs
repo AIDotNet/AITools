@@ -27,7 +27,8 @@ namespace AI.Chat.Copilot.Infrastructure
             optionsBuilder.UseNpgsql(connectionString: "Host=localhost;Username=root;Password=1;Database=ai-tools",
                 builder => { builder.EnableRetryOnFailure(); });
             optionsBuilder.LogTo(async msg => {
-                await File.AppendAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ef.log"), msg, Encoding.UTF8);
+                await Console.Out.WriteLineAsync(msg);
+                //await File.AppendAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ef.log"), msg, Encoding.UTF8);
             }, LogLevel.Information).EnableSensitiveDataLogging();
         }
 

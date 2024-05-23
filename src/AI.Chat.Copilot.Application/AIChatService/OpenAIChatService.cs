@@ -25,7 +25,7 @@ namespace AI.Chat.Copilot.Application.AIChatService
             var kernel = Kernel.CreateBuilder()
                 .AddOpenAIChatCompletion(modelId: app.ModelId, apiKey: app.Secret, httpClient: httpClient)
                 .Build();
-            var func = kernel.CreateFunctionFromPrompt(app.Prompt ?? "{{$input}}", new OpenAIPromptExecutionSettings
+            var func = kernel.CreateFunctionFromPrompt(string.IsNullOrEmpty(app.Prompt) ? "{{$input}}" : app.Prompt, new OpenAIPromptExecutionSettings
             {
                 MaxTokens = app.MaxTokens,
                 Temperature = app.Temperature / 100
