@@ -59,7 +59,7 @@ namespace AI.Chat.Copilot.ViewModels
             SearchCommand = ReactiveCommand.CreateFromTask(SearchAsync, this.WhenAnyValue(x => x.SearchText, query => !string.IsNullOrWhiteSpace(query)));
             CreateEditAppCommand = ReactiveCommand.Create<AIApps>(ShowDialog);
             DeleteCommand = ReactiveCommand.CreateFromTask<AIApps>(DeleteAsync);
-            Task.Delay(10).ContinueWith(_ => AsyncContext.Run(SearchAsync));
+            Task.Delay(10).ContinueWith(_ => SearchAsync());
         }
 
         private async Task SearchAsync()

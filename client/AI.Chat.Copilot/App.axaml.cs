@@ -56,6 +56,9 @@ namespace AI.Chat.Copilot
         }
         public override void OnFrameworkInitializationCompleted()
         {
+            using var scope = ServiceProvider.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<AIToolDbContext>();
+            context.Database.EnsureCreated();
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 //desktop.MainWindow = new MainWindow

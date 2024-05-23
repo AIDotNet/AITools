@@ -18,18 +18,17 @@ namespace AI.Chat.Copilot.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AIToolDbContext).Assembly);
+            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(AIToolDbContext).Assembly);
         }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(connectionString: "Host=localhost;Username=root;Password=1;Database=ai-tools",
-                builder => { builder.EnableRetryOnFailure(); });
-            optionsBuilder.LogTo(async msg => {
-                await Console.Out.WriteLineAsync(msg);
-                //await File.AppendAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ef.log"), msg, Encoding.UTF8);
-            }, LogLevel.Information).EnableSensitiveDataLogging();
+            optionsBuilder.UseSqlite(connectionString: "Data Source=mydatabase.db;");
+            //optionsBuilder.LogTo(async msg => {
+            //    await Console.Out.WriteLineAsync(msg);
+            //    //await File.AppendAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ef.log"), msg, Encoding.UTF8);
+            //}, LogLevel.Information).EnableSensitiveDataLogging();
         }
 
     }

@@ -126,7 +126,7 @@ public class SideMenu : SelectingItemsControl
             if(obj is Chat chat)
             {
                 //TODO 其实这里可以用ReloadToken
-                _ =  Task.Run(()=>Dispatcher.UIThread.InvokeAsync(()=> ((ChatViewModel)chat.DataContext!).RefreshAppsAsync()));
+                //_ =  Task.Run(()=>Dispatcher.UIThread.InvokeAsync(()=> ((ChatViewModel)chat.DataContext!).RefreshAppsAsync()));
             }
             return obj;
         }

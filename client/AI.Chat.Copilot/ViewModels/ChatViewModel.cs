@@ -32,6 +32,7 @@ namespace AI.Chat.Copilot.ViewModels
         public ReactiveCommand<ScrollViewer,Unit> SendCommand { get; set; }
         public ReactiveCommand<AppChatMessage, Unit> StopCommand { get; set; }
         public ReactiveCommand<string, Unit> CopyCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> RefreshAppCommand { get; set; }
         private IDisposable disposable;
 
         public ChatViewModel()
@@ -44,15 +45,19 @@ namespace AI.Chat.Copilot.ViewModels
             SendCommand = ReactiveCommand.CreateFromTask<ScrollViewer>(SendAsync, this.WhenAnyValue(u => u.Content, u => u.IsWait, (txt, status) => !string.IsNullOrWhiteSpace(txt) && !status));
             StopCommand = ReactiveCommand.Create<AppChatMessage>(Stop);
             CopyCommand = ReactiveCommand.Create<string>(Copy);
+            RefreshAppCommand = ReactiveCommand.CreateFromTask(RefreshAppsAsync);
             disposable = SendCommand.Subscribe(async res =>
             {
-                if (SelectItem.IsNew)
+               await Dispatcher.UIThread.InvokeAsync(async () =>
                 {
-                    SelectItem.CreateTime = DateTime.Now;
-                    using var service = App.ServiceScope;
-                    await service.Resolve<AppChatService>().InsertAsync(SelectItem);
-                    SelectItem.IsNew = false;
-                }
+                    if (SelectItem.IsNew)
+                    {
+                        SelectItem.CreateTime = DateTime.Now;
+                        using var service = App.ServiceScope;
+                        await service.Resolve<AppChatService>().InsertAsync(SelectItem);
+                        SelectItem.IsNew = false;
+                    }
+                });
             });
         }
         public Dictionary<string, ObservableCollection<AppChatMessage>> ChatHistoriesManager { get; set; }

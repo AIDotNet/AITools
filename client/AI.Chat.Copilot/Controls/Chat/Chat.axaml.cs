@@ -21,10 +21,12 @@ public partial class Chat : UserControl
     public Chat()
     {
         InitializeComponent();
-        _ = Dispatcher.UIThread.InvokeAsync(async () => {
+        _ = Dispatcher.UIThread.InvokeAsync(async () =>
+        {
             using var service = App.ServiceScope;
             VM!.Apps.Clear();
             VM!.AppChats.AddRange(await service.Resolve<AppChatService>().GetListAsync());
+            await VM.RefreshAppsAsync();
         });
     }
 

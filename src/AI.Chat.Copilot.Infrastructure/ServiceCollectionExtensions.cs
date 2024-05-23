@@ -12,6 +12,7 @@ namespace AI.Chat.Copilot.Infrastructure
     {
         public static IServiceCollection AddEFCoreRepository(this IServiceCollection services)
         {
+            services.AddDbContext<AIToolDbContext>();
             services.AddGenericRepository<AIToolDbContext>();
             services.AddQueryRepository<AIToolDbContext>();
             return services;
