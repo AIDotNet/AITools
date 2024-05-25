@@ -16,6 +16,8 @@ namespace AI.Chat.Copilot.Application
             services.AddTransient<AIApplicationAppService>();
             services.AddTransient<AppChatService>();
             services.AddKeyedScoped<IChatService, OpenAIChatService>(AIModelType.OpenAI);
+            services.AddKeyedScoped<IChatService, AzureOpenAIChatService>(AIModelType.AzureOpenAI);
+            services.AddSingleton<OpenAITokenRecordQueue>();
             return services;
         }
     }

@@ -23,7 +23,7 @@ namespace AI.Chat.Copilot.Test
             _builder.AddOpenAIChatCompletion(
                 modelId: config?.ModelId ?? "", 
                 apiKey: config?.Secret ?? "",
-                httpClient: new HttpClient(new OpenAIHttpClientHandler(config?.ProxyHost ?? string.Empty)));
+                httpClient: new HttpClient(new OpenAIHttpClientHandler(config?.Endpoint ?? string.Empty)));
         }
 
         [Fact]

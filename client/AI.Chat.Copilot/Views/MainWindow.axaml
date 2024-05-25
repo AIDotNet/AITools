@@ -34,7 +34,7 @@ ExtendClientAreaToDecorationsHint="True"
 		<resources:AppMenuContentControlConverter x:Key="AppMenuContentControlConverter" />
 	</Window.Resources>
 	<Panel>
-		<local:SideMenu Padding="0,10,0,0" x:Name="Menu" SelectionChanged="SideMenu_SelectionChanged" ItemsSource="{Binding AppMenuItems}">
+		<local:SideMenu Padding="0,10,0,0" x:Name="Menu" ItemsSource="{Binding AppMenuItems}">
 		</local:SideMenu>
 	</Panel>
 </suki:SukiWindow>

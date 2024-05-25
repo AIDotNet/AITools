@@ -1,5 +1,5 @@
 - [x] OpenAI
-- [ ] AzureOpenAI
+- [x] AzureOpenAI
 - [ ] Lucene 日志记录
 - [ ] 性能监控
 - [ ] UI界面优化

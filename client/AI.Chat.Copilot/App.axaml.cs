@@ -12,6 +12,7 @@ using System.Reactive;
 using System.Threading.Tasks;
 using SukiUI.Controls;
 using Avalonia.Controls;
+using Microsoft.Extensions.Logging;
 
 namespace AI.Chat.Copilot
 {
@@ -38,8 +39,12 @@ namespace AI.Chat.Copilot
             {
                 AppMenuItems = [ AppMenu.Index() ,AppMenu.Chat(), AppMenu.App(), AppMenu.GlobalSettings()]
             };
-            services.AddSingleton(_=> new MainWindow { 
-             DataContext = mainVm
+            services.AddSingleton(provider => {
+                var queue = provider.GetRequiredService<OpenAITokenRecordQueue>();
+                return new MainWindow(queue)
+                {
+                    DataContext = mainVm
+                };
             });
             services.AddSingleton<Index>();
             services.AddSingleton(_ => new Chat() { DataContext = new ChatViewModel() });

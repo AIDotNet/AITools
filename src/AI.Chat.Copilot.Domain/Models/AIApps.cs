@@ -43,7 +43,7 @@ namespace AI.Chat.Copilot.Domain.Models
         /// <summary>
         /// 代理地址
         /// </summary>
-        public string? ProxyHost { get; set; }
+        public string? Endpoint { get; set; }
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; }
         public DateTime? DeletedTime { get; set; }

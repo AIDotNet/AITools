@@ -24,7 +24,7 @@ namespace AI.Chat.Copilot.Infrastructure.Maps
             builder.Property(u => u.AIModelType).HasColumnType("integer").HasConversion<EnumToNumberConverter<AIModelType,int>>();
             builder.Property(u => u.ModelId).HasColumnType("varchar(50)");
             builder.Property(u => u.Secret).HasColumnType("varchar(200)");
-            builder.Property(u=>u.ProxyHost).HasColumnType("varchar(50)");
+            builder.Property(u=>u.Endpoint).HasColumnType("varchar(50)");
             builder.Property(u=>u.CreateTime).IsRequired().HasColumnType("timestamp");
             builder.Property(u => u.IsDeleted).HasColumnType("boolean");
             builder.Property(u => u.DeletedTime).IsRequired(false).HasColumnType("timestamp");

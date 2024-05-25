@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="E:\Nuget\packages\sukiui\6.0.0-beta4\contentFiles\any\netstandard2.0\suki_photo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\ai-1.jpg" />
     <None Remove="Assets\ai.jpg" />
     <None Remove="Assets\default-app.png" />

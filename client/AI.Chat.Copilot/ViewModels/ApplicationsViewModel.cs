@@ -105,7 +105,7 @@ namespace AI.Chat.Copilot.ViewModels
                 origin.MaxTokens = data.MaxTokens;
                 origin.ModelId = data.ModelId;
                 origin.Prompt = data.Prompt;
-                origin.ProxyHost = data.ProxyHost;
+                origin.Endpoint = data.Endpoint;
                 origin.Secret = data.Secret;
                 origin.Temperature = data.Temperature;
             }

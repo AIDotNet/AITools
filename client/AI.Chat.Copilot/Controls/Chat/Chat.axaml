@@ -24,13 +24,13 @@
 							<Image Source="/Assets/GPT.png"></Image>
 						</Border>
 						<sk:GlassCard Grid.Column="1" CornerRadius="12" Margin="10,0,0,0" HorizontalAlignment="Left" Padding="10" VerticalAlignment="Stretch">
-							<Grid RowDefinitions="*,*">
+							<Grid RowDefinitions="*,*" MinWidth="100" ColumnDefinitions="*">
 								<Button Grid.Row="0" Command="{Binding ((vm:ChatViewModel)DataContext).CopyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content}" Classes="Basic" HorizontalAlignment="Right" Margin="0,-10,-10,-5" Cursor="Hand">
 									<materialIcons:MaterialIcon Kind="ContentCopy" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
 								</Button>
 								<StackPanel Grid.Row="1">
 									<mdxaml:MarkdownScrollViewer SelectionEnabled="True" Markdown="{Binding Content, Converter={StaticResource MC}}" ScrollValue="" >
-										<mdxaml:MarkdownScrollViewer.Styles>
+										<!--<mdxaml:MarkdownScrollViewer.Styles>
 											<Style Selector=".Markdown_Avalonia_MarkdownViewer ctxt|CTextBlock">
 												<Style.Setters>
 													<Setter Property="SelectionBrush" Value="LightBlue"></Setter>
@@ -74,13 +74,14 @@
 													<Setter Property="CornerRadius"     Value="7"/>
 													<Setter Property="Padding"             Value="5,5,5,1"/>
 													<Setter Property="Margin" Value="1,0"></Setter>
+
 												</Style.Setters>
 											</Style>
 											<Style Selector=".Markdown_Avalonia_MarkdownViewer ctxt|CCode">
 												<Style.Setters>
 													<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"></Setter>
 													<Setter Property="FontWeight" Value="Normal"></Setter>
-													<Setter Property="Foreground" Value="White" />
+													<Setter Property="Foreground" Value="LightBlue" />
 													<Setter Property="Background" Value="{DynamicResource SukiAccentColor5}" />
 												</Style.Setters>
 											</Style>
@@ -89,7 +90,7 @@
 													<Setter Property="CornerRadius"    Value="10" />
 													<Setter Property="BorderBrush"     Value="{DynamicResource SukiAccentColor5}"/>
 													<Setter Property="BorderThickness" Value="1"/>
-													<Setter Property="Padding" Value="12"></Setter>
+													<Setter Property="Padding"		   Value="12"></Setter>
 													<Setter Property="Margin"          Value="5,10"/>
 													<Setter Property="Background"      Value="{DynamicResource SukiAccentColor5}"/>
 												</Style.Setters>
@@ -112,7 +113,7 @@
 													<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"></Setter>
 												</Style.Setters>
 											</Style>
-										</mdxaml:MarkdownScrollViewer.Styles>
+										</mdxaml:MarkdownScrollViewer.Styles>-->
 									</mdxaml:MarkdownScrollViewer>
 									<Panel  IsVisible="{Binding IsWriting}" HorizontalAlignment="Center" Margin="5,25,5,0">
 										<Panel.Transitions>
@@ -135,20 +136,19 @@
 				</StackPanel>
 			</DataTemplate>
 			<DataTemplate x:Key="user" DataType="model:AppChatMessage">
-				<StackPanel HorizontalAlignment="Stretch"  Margin="5" VerticalAlignment="Stretch">
-					<Grid ColumnDefinitions="30,*">
+				<StackPanel HorizontalAlignment="Stretch"  Margin="5">
+					<Grid ColumnDefinitions="30,Auto,30">
 						<Border Grid.Column="0" Height="30" Width="30" CornerRadius="50" ClipToBounds="True" VerticalAlignment="Top">
 							<Image Source="/Assets/default-user.png"></Image>
 						</Border>
-						<sk:GlassCard Grid.Column="1" CornerRadius="12" Margin="10,0,0,0" HorizontalAlignment="Left" Padding="10" VerticalAlignment="Stretch">
-							<Grid RowDefinitions="*,*">
-								<Button Grid.Row="0" Command="{Binding ((vm:ChatViewModel)DataContext).CopyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Content}" Classes="Basic" HorizontalAlignment="Right" Margin="0,-10,-10,-5" Cursor="Hand">
-									<materialIcons:MaterialIcon Kind="ContentCopy" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
-								</Button>
-								<SelectableTextBlock Grid.Row="1" Margin="10,0,10,5"  Text="{Binding Content}" Classes="chatTextBoxStyle">
-								</SelectableTextBlock>
-							</Grid>
+						<sk:GlassCard Grid.Column="1" CornerRadius="12" Margin="10,0,0,0" HorizontalAlignment="Left" Padding="10" >
+								<SelectableTextBlock   Text="{Binding Content}" Classes="chatTextBoxStyle"></SelectableTextBlock>
 						</sk:GlassCard>
+					    <Button Grid.Column="2" VerticalAlignment="Top"
+							Command="{Binding ((vm:ChatViewModel)DataContext).CopyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+							CommandParameter="{Binding Content}" Classes="Basic"  Cursor="Hand">
+									<materialIcons:MaterialIcon Kind="ContentCopy" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
+					     </Button>
 					</Grid>
 				</StackPanel>
 			</DataTemplate>
@@ -222,7 +222,7 @@
 							</DataTemplate>
 						</ComboBox.ItemTemplate>
 					</ComboBox>
-					<Button Command="{Binding RefreshAppCommand}" Classes="Basic">
+					<Button Command="{Binding RefreshAppCommand}" Classes="Basic" Cursor="Hand">
 						<DockPanel LastChildFill="True">
 							<materialIcons:MaterialIcon Kind="Refresh" DockPanel.Dock="Left"/>
 						</DockPanel>
@@ -231,17 +231,18 @@
 				<sk:GlassCard  Padding="0" CornerRadius="1" BorderThickness="0" BorderBrush="LightGray">
 					<StackPanel>
 						<TextBox Height="100" BorderThickness="0" AcceptsReturn="True" Name="ChatInput" TextWrapping="Wrap"
-								 VerticalContentAlignment="Top" Text="{Binding Content,Mode=TwoWay}"/>
+								 VerticalContentAlignment="Top" Text="{Binding Content,Mode=TwoWay}" />
 						<StackPanel HorizontalAlignment="Right" Margin="0,0,10,10">
-							<Button Width="100" Classes="Flat Rounded" Content="发送" Command="{Binding SendCommand}" CommandParameter="{Binding #scroll}" Cursor="Hand"/>
+							<Button Width="100" Classes="Flat Rounded" Content="发送" Command="{Binding SendCommand}" CommandParameter="{Binding #scroll}" Cursor="Hand"
+									/>
 						</StackPanel>
 					</StackPanel>
 				</sk:GlassCard>
 			</StackPanel>
 			<sk:GlassCard CornerRadius="1" BorderBrush="LightGray">
 				<ScrollViewer x:Name="scroll">
-					<StackPanel>
-						<ItemsControl x:Name="chats" ItemsSource="{Binding ChatHistories}" >
+					<StackPanel VerticalAlignment="Stretch">
+						<ItemsControl x:Name="chats" ItemsSource="{Binding ChatHistories}" VerticalAlignment="Stretch">
 						</ItemsControl>
 					</StackPanel>
 				</ScrollViewer>

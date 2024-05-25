@@ -42,7 +42,7 @@ namespace AI.Chat.Copilot.ViewModels
             ChatHistoriesManager = new();
             _chaHistories = new ObservableCollection<AppChatMessage>();
             NewChatCommand = ReactiveCommand.Create(NewChat);
-            SendCommand = ReactiveCommand.CreateFromTask<ScrollViewer>(SendAsync, this.WhenAnyValue(u => u.Content, u => u.IsWait, (txt, status) => !string.IsNullOrWhiteSpace(txt) && !status));
+            SendCommand = ReactiveCommand.CreateFromTask<ScrollViewer>(SendAsync, this.WhenAnyValue(u => u.Content, u => u.IsWait, (txt, status) => txt !=null && !string.IsNullOrWhiteSpace(txt.Trim()) && !status));
             StopCommand = ReactiveCommand.Create<AppChatMessage>(Stop);
             CopyCommand = ReactiveCommand.Create<string>(Copy);
             RefreshAppCommand = ReactiveCommand.CreateFromTask(RefreshAppsAsync);
@@ -111,7 +111,7 @@ namespace AI.Chat.Copilot.ViewModels
         public string Content
         {
             get => _content;
-            set => this.RaiseAndSetIfChanged(ref _content,value.Trim());
+            set => this.RaiseAndSetIfChanged(ref _content,value);
         }
 
         private bool _isWait;
@@ -154,7 +154,7 @@ namespace AI.Chat.Copilot.ViewModels
             ChatHistoriesManager.Add(SelectItem.Id, ChatHistories);
         }
 
-        private async Task SendAsync(ScrollViewer scrollViewer)
+        public async Task SendAsync(ScrollViewer scrollViewer)
         {
             IsWait = true;
             await Task.Delay(100);
