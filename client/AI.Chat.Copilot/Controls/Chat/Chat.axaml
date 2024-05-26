@@ -25,7 +25,19 @@
 						</Border>
 						<StackPanel Grid.Column="1">
 						<sk:GlassCard CornerRadius="12" Margin="10,0,0,0" HorizontalAlignment="Left" Padding="10" >
+							<StackPanel>
 							<SelectableTextBlock   Text="{Binding Content}" Classes="chatTextBoxStyle"></SelectableTextBlock>
+								<Panel  IsVisible="{Binding IsWriting}" HorizontalAlignment="Center" Margin="5,25,5,0">
+								     <Panel.Transitions>
+											<Transitions>
+												<DoubleTransition Property="Opacity" Duration="0:0:0.25"></DoubleTransition>
+											</Transitions>
+										</Panel.Transitions>
+											<Button BorderThickness="0" Command="{Binding ((vm:ChatViewModel)DataContext).StopCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Classes="Basic Rounded" Cursor="Hand" >
+												<materialIcons:MaterialIcon Kind="Stop" Foreground="{DynamicResource SukiText}"></materialIcons:MaterialIcon>
+											</Button>
+										</Panel>
+								</StackPanel>
 							<!--<StackPanel>
 										<mdxaml:MarkdownScrollViewer SelectionEnabled="True" Markdown="{Binding Content, Converter={StaticResource MC}}" >
 										</mdxaml:MarkdownScrollViewer>

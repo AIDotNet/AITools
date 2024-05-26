@@ -156,6 +156,11 @@ namespace AI.Chat.Copilot.ViewModels
 
         public async Task SendAsync(ScrollViewer scrollViewer)
         {
+            if(SelectItem == null)
+            {
+                await DialogHelper.ShowTipDialogAsync("请先创建对应的会话", MsBox.Avalonia.Enums.Icon.Warning);
+                return;
+            }
             IsWait = true;
             await Task.Delay(100);
             if(AppSelectItem == null)
