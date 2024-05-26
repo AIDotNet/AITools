@@ -79,7 +79,7 @@
 									</DockPanel.Transitions>
 									<StackPanel DockPanel.Dock="Left"  Orientation="Horizontal"  VerticalAlignment="Center" >
 										<Image Height="20" Width="20" Source="/Assets/default-app.png" Margin="0,0,10,0"/>
-										<TextBlock Text="{Binding Name,Mode=TwoWay}"></TextBlock>
+										<TextBlock Text="{Binding Name,Mode=TwoWay}" Foreground="{DynamicResource SukiText}"></TextBlock>
 									</StackPanel>
 									<StackPanel  DockPanel.Dock="Right" Orientation="Horizontal">
 										<Button Cursor="Hand" BorderThickness="0" Padding="0" Command="{Binding ((vm:ApplicationsViewModel)DataContext).CreateEditAppCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"

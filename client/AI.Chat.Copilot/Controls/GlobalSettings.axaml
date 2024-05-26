@@ -3,6 +3,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AI.Chat.Copilot.GlobalSettings">
-  Welcome to Avalonia!
+             x:Class="AI.Chat.Copilot.GlobalSettings"
+			 xmlns:sk="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+	<sk:GlassCard Margin="10" CornerRadius="10">
+		<Grid HorizontalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+
+			<Label Grid.Row="0" Grid.Column="0" Content="主题" VerticalContentAlignment="Center" />
+			<StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+				<RadioButton Margin="5" Checked="RadioButton_Checked_1" IsChecked="true">Light</RadioButton>
+				<RadioButton Margin="5" Checked="RadioButton_Checked_2">Dark</RadioButton>
+				<Button Margin="5" x:Name="BtnColor" Classes="Basic" Cursor="Hand" Click="BtnColor_Click">
+					<DockPanel LastChildFill="True">
+						<materialIcons:MaterialIcon Kind="Palette" DockPanel.Dock="Left"/>
+					</DockPanel>
+				</Button>
+			</StackPanel>
+		</Grid>
+	</sk:GlassCard>
 </UserControl>

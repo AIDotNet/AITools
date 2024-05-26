@@ -110,6 +110,7 @@
 				</ControlTemplate>
 			</Setter>
 			<Setter Property="Cursor" Value="Hand"></Setter>
+			<Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
 		</Style>
 	</UserControl.Styles>
 	<UserControl.Resources>
