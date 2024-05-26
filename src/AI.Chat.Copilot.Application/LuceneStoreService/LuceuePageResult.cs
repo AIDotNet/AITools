@@ -1,4 +1,5 @@
-﻿using Lucene.Net.Search;
+﻿using Lucene.Net.Documents;
+using Lucene.Net.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace AI.Chat.Copilot.Application.LuceneStoreService
 {
     public class LuceuePageResult
     {
-        public TopDocs Docs { get; set; }
+        public Document[] Docs { get; set; }
         public ScoreDoc ScoreDoc { get; set; }
     }
 }

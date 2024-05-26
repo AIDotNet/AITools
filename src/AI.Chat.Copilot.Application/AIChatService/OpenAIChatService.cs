@@ -70,84 +70,68 @@ namespace AI.Chat.Copilot.Application.AIChatService
                 ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
             };
             #region
-            //KernelFunction func;
-            //string historyMsg = string.Join("\n", history.Select(x => x.Role + ": " + x.Content));
-            //if (history.Count() >= 5)
+            var promptTemplate = new KernelPromptTemplateFactory().Create(new PromptTemplateConfig(prompt)
+            {
+                ExecutionSettings = new Dictionary<string, PromptExecutionSettings>
+                {
+                    { "default", settings }
+                }
+            });
+            string appPrompt = app.Prompt ?? "你是一个AI智能人工助手";
+            var arg = new KernelArguments
+            {
+                ["tip"] = appPrompt,
+                ["input"] = content.Trim(),
+                ["history"] = string.Join("\n", history.Select(x => x.Role + ": " + x.Content))
+            };
+            int count = 0;
+            Stopwatch sw = Stopwatch.StartNew();
+            DateTime dateTime = DateTime.Now;
+            await foreach (var item in kernel.InvokePromptStreamingAsync(prompt, arg, cancellationToken: cancellationToken))
+            {
+                if (item is not null)
+                {
+                    count += Tokenizers.GetTokens(app.ModelId!, item.ToString());
+                    yield return item.ToString();
+                }
+            }
+            sw.Stop();
+            string asw = await promptTemplate.RenderAsync(kernel, arg);
+            await Queue.EnqueueAsync(new OpenAIToken(app.Id, app.Name,Tokenizers.GetTokens(app.ModelId, asw), count, sw.ElapsedMilliseconds, dateTime.ToString("yyyy-MM-dd HH:mm:ss")));
+            #endregion
+            #region 
+            //Stopwatch sw = Stopwatch.StartNew();
+            //var chat = kernel.GetRequiredService<IChatCompletionService>();
+            //int compliationCount = 0;
+            //int promptCount = 0;
+            //var chatHistories = history.Select(u => new Microsoft.SemanticKernel.ChatMessageContent(ConvertRole(u.Role), u.Content)).ToList();
+            //chatHistories.Insert(0, new ChatMessageContent(AuthorRole.System, app.Prompt ?? "你是一个人工智能助手"));
+            //var chatHistory = new ChatHistory(chatHistories);
+            //await foreach (var item in  chat.GetStreamingChatMessageContentsAsync(chatHistory, settings, kernel, cancellationToken))
             //{
-            //    string msg = $"用中文总结以下内容：{historyMsg}，要求简洁明了，字数控制在200字以内。";
-            //    Stopwatch stopwatch = Stopwatch.StartNew();
-            //    func = kernel.CreateFunctionFromPrompt("{{ConversationSummaryPlugin.SummarizeConversation $input}}", new OpenAIPromptExecutionSettings
+            //    if (item.Metadata != null && item.Metadata.ContainsKey("Usage"))
             //    {
-            //        MaxTokens = 1024,
-            //        Temperature = 0.7,
-            //        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-            //    });
-            //    var result = await kernel.InvokeAsync(func, new KernelArguments
-            //    {
-            //        ["input"] = msg
-            //    }, cancellationToken);
-            //    historyMsg = result.GetValue<string>() ?? historyMsg;
-            //    stopwatch.Stop();
-            //    if (result.Metadata?.ContainsKey("Usage") ?? false)
-            //    {
-            //        var usage = (CompletionsUsage)result.Metadata["Usage"];
-            //        await Queue.EnqueueAsync(new OpenAIToken(app.Id, usage.CompletionTokens, usage.PromptTokens, stopwatch.ElapsedMilliseconds));
+            //        var usage = (CompletionsUsage)item.Metadata["Usage"];
+            //        compliationCount += usage.CompletionTokens;
+            //        promptCount += usage.PromptTokens;
             //    }
-            //}
-            //var promptTemplate = new KernelPromptTemplateFactory().Create(new PromptTemplateConfig(prompt)
+            //    yield return item.ToString();
+            //} 
+            //if (result is not null)
             //{
-            //    ExecutionSettings = new Dictionary<string, PromptExecutionSettings>
+            //    foreach (var item in result)
             //    {
-            //        { "default", settings }
-            //    }
-            //});
-            //func = KernelFunctionFactory.CreateFromPrompt(prompt, settings);
-
-            //string appPrompt = app.Prompt ?? "你是一个AI智能人工助手";
-            //var arg = new KernelArguments
-            //{
-            //    ["tip"] = appPrompt,
-            //    ["input"] = content.Trim(),
-            //    ["history"] = historyMsg
-            //};
-            //int count = 0;
-            // Stopwatch sw = Stopwatch.StartNew();
-            //await foreach (var item in kernel.InvokeStreamingAsync(func, arg , cancellationToken))
-            //{
-            //    if (item is not null)
-            //    {
-            //        count += Tokenizers.GetTokens(app.ModelId!, item.ToString());
+            //        if (item.Metadata != null && item.Metadata.ContainsKey("Usage"))
+            //        {
+            //            var usage = (CompletionsUsage)item.Metadata["Usage"];
+            //            compliationCount += usage.CompletionTokens;
+            //            promptCount += usage.PromptTokens;
+            //        }
             //        yield return item.ToString();
             //    }
             //}
-            // sw.Stop();
-            //string asw = await promptTemplate.RenderAsync(kernel, arg);
-            //await Queue.EnqueueAsync(new OpenAIToken(app.Id, Tokenizers.GetTokens(app.ModelId, asw), count, sw.ElapsedMilliseconds));
+            //await Queue.EnqueueAsync(new OpenAIToken(app.Id, compliationCount, promptCount, sw.ElapsedMilliseconds));
             #endregion
-            Stopwatch sw = Stopwatch.StartNew();
-            var chat = kernel.GetRequiredService<IChatCompletionService>();
-            int compliationCount = 0;
-            int promptCount = 0;
-            var chatHistories = history.Select(u => new Microsoft.SemanticKernel.ChatMessageContent(ConvertRole(u.Role), u.Content)).ToList();
-            chatHistories.Insert(0, new ChatMessageContent(AuthorRole.System, app.Prompt ?? "你是一个人工智能助手"));
-            var chatHistory = new ChatHistory(chatHistories);
-            var result = await chat.GetChatMessageContentsAsync(chatHistory, settings, kernel, cancellationToken);
-            {
-                if (result is not null)
-                {
-                    foreach (var item in result)
-                    {
-                        if(item.Metadata !=null && item.Metadata.ContainsKey("Usage"))
-                        {
-                            var usage = (CompletionsUsage)item.Metadata["Usage"];
-                            compliationCount += usage.CompletionTokens;
-                            promptCount += usage.PromptTokens;
-                        }
-                        yield return item.ToString();
-                    }
-                }
-            }
-            await Queue.EnqueueAsync(new OpenAIToken(app.Id, compliationCount, promptCount, sw.ElapsedMilliseconds));
         }
 
         private AuthorRole ConvertRole(string role)

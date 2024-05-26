@@ -21,7 +21,12 @@ namespace AI.Chat.Copilot.Application
         private static readonly string BasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"index");
         const LuceneVersion AppLuceneVersion = LuceneVersion.LUCENE_48;
 
-        public void WriteDocs(string categoryName, IEnumerable<Document> documents)
+        public static void WriteDoc(string categoryName, Document document)
+        {
+            WriteDocs(categoryName, new List<Document> { document });
+        }
+
+        public static void WriteDocs(string categoryName, IEnumerable<Document> documents)
         {
             using var dir = FSDirectory.Open(Path.Combine(BasePath,categoryName));
             using var analyzer = new StandardAnalyzer(AppLuceneVersion);
@@ -34,7 +39,7 @@ namespace AI.Chat.Copilot.Application
         /// <summary>
         /// 分页查询
         /// </summary>
-        public LuceuePageResult PaginationQuery(string categoryName, Query query, ScoreDoc scoreDoc = null)
+        public static LuceuePageResult PaginationQuery(string categoryName, Query query, ScoreDoc scoreDoc = null)
         {
             using var dir = FSDirectory.Open(Path.Combine(BasePath, categoryName));
             using DirectoryReader reader = DirectoryReader.Open(dir);
@@ -42,9 +47,14 @@ namespace AI.Chat.Copilot.Application
 
             TopDocs initialResults = scoreDoc == null ? searcher.Search(query, 10) : searcher.SearchAfter(scoreDoc, query, 10);
             ScoreDoc lastScoreDoc = initialResults.ScoreDocs?.LastOrDefault();
+            Document[] docs = new Document[initialResults.ScoreDocs?.Length ?? 0];
+            for (int i = 0; i < initialResults.ScoreDocs?.Length; i++)
+            {
+                docs[i] = searcher.Doc(initialResults.ScoreDocs[0].Doc);
+            }
             return new LuceuePageResult
             {
-                Docs = initialResults,
+                Docs = docs,
                 ScoreDoc = lastScoreDoc
             };
         }

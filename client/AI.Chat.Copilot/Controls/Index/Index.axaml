@@ -3,6 +3,71 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AI.Chat.Copilot.Index">
-  Welcome to Avalonia!
+             x:Class="AI.Chat.Copilot.Index"
+			 xmlns:sk="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+			 xmlns:vm="using:AI.Chat.Copilot.ViewModels"
+			  x:DataType="vm:IndexViewModel"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:local="using:AI.Chat.Copilot.Resources">
+	<UserControl.Resources>
+		<local:NextNullConverter x:Key="NextNullConverter" />
+	</UserControl.Resources>
+	<sk:GlassCard CornerRadius="10" Margin="10">
+		<StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Label Content="应用:" VerticalAlignment="Center"></Label>
+				<TextBox Watermark="应用名称" Width="300" Text="{Binding SearchText,Mode=TwoWay} "></TextBox>
+				<Button Command="{Binding SearchCommand}" Classes="Basic" Cursor="Hand">
+					<DockPanel LastChildFill="True">
+						<materialIcons:MaterialIcon Kind="Refresh" DockPanel.Dock="Left"/>
+					</DockPanel>
+				</Button>
+			</StackPanel>
+			<StackPanel>
+					<DataGrid  ItemsSource="{Binding OpenAITokens,Mode=TwoWay}" Height="300">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="应用Id"  Width="*" Binding="{Binding AppId,Mode=TwoWay}"/>
+							<DataGridTextColumn Header="应用名称" Width="*" Binding="{Binding AppName,Mode=TwoWay}" />
+							<DataGridTextColumn Header="开始时间" Width="*" Binding="{Binding DateTime,Mode=TwoWay}" />
+							<DataGridTextColumn Width="10"/>
+							<DataGridTemplateColumn Header="补全Token" Width="*">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Border  BorderThickness="1" BorderBrush="BlueViolet" CornerRadius="2"  Padding="5 2" VerticalAlignment="Center" >
+											<TextBlock Text="{Binding CompletionTokenCount,Mode=TwoWay}" Foreground="#486860"></TextBlock>
+										</Border>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+							<DataGridTemplateColumn Header="提示Token" Width="*">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Border  BorderThickness="1" BorderBrush="BlueViolet" CornerRadius="2"  Padding="5 2" VerticalAlignment="Center">
+											<TextBlock Text="{Binding PromptTokenCount,Mode=TwoWay}" Foreground="#486860"></TextBlock>
+										</Border>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+							<DataGridTemplateColumn Header="耗时" Width="*">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Border BorderThickness="1" BorderBrush="BlueViolet" CornerRadius="2"  Padding="5 2" VerticalAlignment="Center">
+											<TextBlock Text="{Binding Duration,Mode=TwoWay}" Foreground="#486860"></TextBlock>
+										</Border>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+						<Button  Classes="Basic" Cursor="Hand" Command="{Binding NextCommand}" IsVisible="{Binding ScoreDoc, Mode=TwoWay ,Converter={StaticResource NextNullConverter}}">
+							<DockPanel LastChildFill="True">
+								<materialIcons:MaterialIcon Kind="SkipNext" DockPanel.Dock="Left"/>
+							</DockPanel>
+						</Button>
+					</StackPanel>
+			</StackPanel>
+		</StackPanel>
+	</sk:GlassCard>
+
 </UserControl>

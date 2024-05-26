@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lucene.Net.Documents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,11 +35,30 @@ namespace AI.Chat.Copilot.Application
                     if (_channel.Reader.TryRead(out var item))
                     {
                         Console.WriteLine($"消费数据：{JsonSerializer.Serialize(item)}");
+                        LuceneService.WriteDoc(AppConst.OpenAITokenIndex, OpenAIToken.Doc(item));
                     }
                 }
             }
         }
     }
 
-    public record OpenAIToken (int AppId,int CompletionTokenCount,int PromptTokenCount,double Duration);
+    public record OpenAIToken(int AppId, string AppName,int CompletionTokenCount, int PromptTokenCount, double Duration,string DateTime)
+    {
+        public static Document Doc(OpenAIToken data)
+        {
+            var doc = new Document();
+            doc.Add(new Int32Field("AppId", data.AppId, Field.Store.YES));
+            doc.Add(new StringField("AppName", data.AppName, Field.Store.YES));
+            doc.Add(new Int32Field("CompletionTokenCount", data.CompletionTokenCount, Field.Store.YES));
+            doc.Add(new Int32Field("PromptTokenCount", data.PromptTokenCount, Field.Store.YES));
+            doc.Add(new DoubleField("Duration", data.Duration, Field.Store.YES));
+            doc.Add(new StringField("CreateDate", data.DateTime, Field.Store.YES));
+            return doc;
+        }
+        public static OpenAIToken Get(Document doc)
+        {
+            return new OpenAIToken(doc.GetField("AppId").GetInt32Value().Value, doc.Get("AppName"), doc.GetField("CompletionTokenCount").GetInt32Value().Value, doc.GetField("PromptTokenCount").GetInt32Value().Value, doc.GetField("Duration").GetDoubleValue().Value, doc.Get("CreateDate"));
+        }
+    }
+
 }
