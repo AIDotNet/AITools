@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AI.Chat.Copilot.Models"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:sk="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+			 xmlns:vm="using:AI.Chat.Copilot.ViewModels"
+			 x:DataType="vm:ModelsViewModel"
+			 xmlns:local="using:AI.Chat.Copilot.Resources"
+			 xmlns:model="using::AI.Chat.Copilot.Application">
+	<UserControl.Resources>
+		<local:ModelUpdateDateTagConverter x:Key="ModelUpdateDateTagConverter" />
+		<local:NextNullConverter x:Key="NextNullConverter" />
+		<local:NumberToShortStringConverter x:Key="NumberToShortStringConverter" />
+	</UserControl.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+		</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+				<TextBox Watermark="模型名称" Width="200" Height="50" Text="{Binding Query,Mode=TwoWay}"></TextBox>
+				<Button Content="搜索"  Classes="Flat"  Height="40" Margin="0,0,10,0" Cursor="Hand" Command="{Binding QueryCommand}" CommandParameter="{Binding Query}"></Button>
+			</StackPanel>
+			<DockPanel LastChildFill="True" Grid.Row="1">
+				<Border DockPanel.Dock="Top" Margin="10,0,10,0" BorderThickness="0,0,0,1" BorderBrush="LightBlue"></Border>
+				<StackPanel DockPanel.Dock="Bottom" Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+					<!--Command="{Binding NextCommand}" IsVisible="{Binding ScoreDoc, Mode=TwoWay ,Converter={StaticResource NextNullConverter}}"-->
+					<Label VerticalAlignment="Center" Content="每页"></Label>
+					<Label VerticalAlignment="Center" Content="{Binding Num,Mode=TwoWay}"></Label>
+					<Button  Classes="Basic" Cursor="Hand" Command="{Binding PreCommand}">
+						<DockPanel LastChildFill="True">
+							<materialIcons:MaterialIcon Kind="SkipPrevious" DockPanel.Dock="Left"/>
+						</DockPanel>
+					</Button>
+					<Button  Classes="Basic" Cursor="Hand" Command="{Binding NextCommand}">
+						<DockPanel LastChildFill="True">
+							<materialIcons:MaterialIcon Kind="SkipNext" DockPanel.Dock="Left"/>
+						</DockPanel>
+					</Button>
+					<Label VerticalAlignment="Center" Content="{Binding CurrentPage,Mode=TwoWay}"></Label>
+					<Label VerticalAlignment="Center" Content="/"></Label>
+					<Label VerticalAlignment="Center" Content="{Binding Page,Mode=TwoWay}"></Label>
+				</StackPanel>
+				<ListBox Background="Transparent" ItemsSource="{Binding Models,Mode=TwoWay}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<sk:GlassCard>
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition ></RowDefinition>
+										<RowDefinition ></RowDefinition>
+									</Grid.RowDefinitions>
+									<Grid Grid.Row="0" ColumnDefinitions="*,50">
+										<TextBlock Grid.Column="0" Text="{Binding Id}"/>
+										<Button  Grid.Column="1" Classes="Basic" Cursor="Hand" Padding="0">
+											 <materialIcons:MaterialIcon Kind="ArrowDown"/>
+										</Button>
+									</Grid>
+									<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+											<TextBlock Text="{Binding Pipeline_tag,Mode=TwoWay}" IsVisible="{Binding Pipeline_tag,Mode=TwoWay, Converter={StaticResource NextNullConverter}}"></TextBlock>
+											<Label Content="·" IsVisible="{Binding Pipeline_tag,Mode=TwoWay, Converter={StaticResource NextNullConverter}}" VerticalAlignment="Center"></Label>
+											<TextBlock Text="{Binding LastModified,Mode=TwoWay, Converter={StaticResource ModelUpdateDateTagConverter}}" ToolTip.Tip="{Binding LastModified,Mode=TwoWay}"></TextBlock>
+											<Label Content="·" VerticalAlignment="Center"></Label>
+											<materialIcons:MaterialIcon Kind="ArrowDown" Width="25" Height="20"/>
+											<TextBlock Text="{Binding Downloads,Mode=TwoWay,Converter={StaticResource NumberToShortStringConverter}}"  ToolTip.Tip="{Binding Downloads,Mode=TwoWay}"></TextBlock>
+											<Label Content="·" VerticalAlignment="Center"></Label>
+											<materialIcons:MaterialIcon Kind="HeartOutline" Width="25" Height="20"/>
+											<TextBlock Text="{Binding Likes,Mode=TwoWay,Converter={StaticResource NumberToShortStringConverter}}}" 
+													   ToolTip.Tip="{Binding Likes,Mode=TwoWay}"></TextBlock>
+									</StackPanel>
+								</Grid>
+							</sk:GlassCard>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid Columns="2">
+								<VirtualizingStackPanel>
+								</VirtualizingStackPanel>
+							</UniformGrid>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+				</ListBox>
+			</DockPanel>
+	</Grid>
+</UserControl>

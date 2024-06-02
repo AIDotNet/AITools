@@ -18,6 +18,13 @@ namespace AI.Chat.Copilot.Application
             services.AddKeyedScoped<IChatService, OpenAIChatService>(AIModelType.OpenAI);
             services.AddKeyedScoped<IChatService, OpenAIChatService>(AIModelType.AzureOpenAI);
             services.AddSingleton<OpenAITokenRecordQueue>();
+            services.AddTransient<HFMirrorService>();
+            services.AddHttpClient(HFMirrorService.Client, client =>
+            {
+                client.BaseAddress = new Uri("https://hf-mirror.com");
+                client.DefaultRequestHeaders.UserAgent.Clear();
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36");
+            });
             return services;
         }
     }

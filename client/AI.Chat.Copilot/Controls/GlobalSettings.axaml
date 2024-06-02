@@ -19,8 +19,8 @@
 
 			<Label Grid.Row="0" Grid.Column="0" Content="主题" VerticalContentAlignment="Center" />
 			<StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-				<RadioButton Margin="5" Checked="RadioButton_Checked_1" IsChecked="true">Light</RadioButton>
-				<RadioButton Margin="5" Checked="RadioButton_Checked_2">Dark</RadioButton>
+				<RadioButton Margin="5" Checked="RadioButton_Checked_1" x:Name="light">Light</RadioButton>
+				<RadioButton Margin="5" Checked="RadioButton_Checked_2" x:Name="dark">Dark</RadioButton>
 				<Button Margin="5" x:Name="BtnColor" Classes="Basic" Cursor="Hand" Click="BtnColor_Click">
 					<DockPanel LastChildFill="True">
 						<materialIcons:MaterialIcon Kind="Palette" DockPanel.Dock="Left"/>

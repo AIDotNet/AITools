@@ -41,5 +41,12 @@ namespace AI.Chat.Copilot
             Header = "设置",
             Icon = new MaterialIcon { Kind = MaterialIconKind.CogOutline, Width = 25, Height = 25 }
         };
+
+        public static SideMenuItem Models() => new SideMenuItem
+        {
+            PageContent = typeof(Models),
+            Header = "模型",
+            Icon = new MaterialIcon { Kind = MaterialIconKind.Brain, Width = 25, Height = 25 }
+        };
     }
 }

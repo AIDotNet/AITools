@@ -48,6 +48,7 @@
     <PackageReference Include="Markdown.Avalonia" Version="11.0.3-a1" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.1.9" />
     <PackageReference Include="MessageBox.Avalonia" Version="3.1.5.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.2" />
@@ -67,6 +68,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

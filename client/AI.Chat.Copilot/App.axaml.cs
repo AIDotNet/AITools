@@ -13,6 +13,11 @@ using System.Threading.Tasks;
 using SukiUI.Controls;
 using Avalonia.Controls;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using SukiUI.Enums;
+using Avalonia.Styling;
+using SukiUI;
 
 namespace AI.Chat.Copilot
 {
@@ -31,13 +36,14 @@ namespace AI.Chat.Copilot
             }
             return content;
         }
+        public static IConfigurationRoot Configuration { get; private set; }
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
             IServiceCollection services = new ServiceCollection();
             var mainVm = new MainWindowViewModel
             {
-                AppMenuItems = [ AppMenu.Index() ,AppMenu.Chat(), AppMenu.App(), AppMenu.GlobalSettings()]
+                AppMenuItems = [ AppMenu.Index() ,AppMenu.Chat(), AppMenu.App(), AppMenu.Models(), AppMenu.GlobalSettings() ]
             };
             services.AddSingleton(provider => {
                 var queue = provider.GetRequiredService<OpenAITokenRecordQueue>();
@@ -50,8 +56,14 @@ namespace AI.Chat.Copilot
             services.AddSingleton(_ => new Chat() { DataContext = new ChatViewModel() });
             services.AddSingleton(_ => new Applications(new ApplicationsViewModel()));
             services.AddSingleton<GlobalSettings>();
+            services.AddSingleton(_ => new Models() { DataContext = new ModelsViewModel() });
             services.AddEFCoreRepository();
             services.AddApplicationService();
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile( "appsettings.json", optional: true, reloadOnChange: true);
+            Configuration = builder.Build();
+            services.AddSingleton(Configuration);
             ServiceProvider = services.BuildServiceProvider();
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
             RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
@@ -70,6 +82,33 @@ namespace AI.Chat.Copilot
                 //{
                 //    DataContext = new MainWindowViewModel(),
                 //};
+                switch (Configuration["Theme"])
+                {
+                    case "Light":
+                        SukiTheme.GetInstance().ChangeBaseTheme(ThemeVariant.Light);
+                        break;
+                    default:
+                        SukiTheme.GetInstance().ChangeBaseTheme(ThemeVariant.Dark);
+                        break;
+                }
+                switch (Configuration["ColorTheme"])
+                {
+                    case "Red":
+                        SukiTheme.GetInstance().ChangeColorTheme(SukiColor.Red);
+                        break;
+                    case "Blue":
+                        SukiTheme.GetInstance().ChangeColorTheme(SukiColor.Blue);
+                        break;
+                    case "Green":
+                        SukiTheme.GetInstance().ChangeColorTheme(SukiColor.Green);
+                        break;
+                    case "Orange":
+                        SukiTheme.GetInstance().ChangeColorTheme(SukiColor.Orange);
+                        break;
+                    default:
+                        SukiTheme.GetInstance().ChangeColorTheme(SukiColor.Blue);
+                        break;
+                }
                 desktop.MainWindow = ServiceProvider!.GetRequiredService<MainWindow>();
             }
 
