@@ -1,4 +1,6 @@
 ﻿using AI.Chat.Copilot.Application;
+using AI.Chat.Copilot.Views;
+using Avalonia.Controls;
 using Avalonia.Threading;
 using DynamicData;
 using ReactiveUI;
@@ -74,12 +76,24 @@ namespace AI.Chat.Copilot.ViewModels
         public ReactiveCommand<string, Unit> QueryCommand { get; set; }
         public ReactiveCommand<Unit, Unit> PreCommand { get; set; }
         public ReactiveCommand<Unit, Unit> NextCommand { get; set; }
+        public ReactiveCommand<string,Unit> DownloadCommand { get; set; }
         public ModelsViewModel()
         {
             Models = new ObservableCollection<HfMirrorModel>();
             QueryCommand = ReactiveCommand.CreateFromTask<string>(QueryAsync);
             PreCommand = ReactiveCommand.CreateFromTask(PreAsync);
             NextCommand = ReactiveCommand.CreateFromTask(NextAsync);
+            DownloadCommand = ReactiveCommand.Create<string>( model =>
+            {
+                using var scope = App.ServiceScope;
+                new ModelDownloadTip
+                {
+                    DataContext = new ModelDownloadTipViewModel()
+                    {
+                        MdText = string.Format(ModelDownloadTipViewModel.mdTemplate, model)
+                    }
+                }.Show(scope.Resolve<MainWindow>());
+            });
         }
         private async Task PreAsync()
         {

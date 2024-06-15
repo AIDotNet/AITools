@@ -76,4 +76,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ModelDownloadTip.axaml" />
+  </ItemGroup>
+
 </Project>

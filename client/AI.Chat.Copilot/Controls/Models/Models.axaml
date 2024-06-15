@@ -54,8 +54,8 @@
 										<RowDefinition ></RowDefinition>
 									</Grid.RowDefinitions>
 									<Grid Grid.Row="0" ColumnDefinitions="*,50">
-										<TextBlock Grid.Column="0" Text="{Binding Id}"/>
-										<Button  Grid.Column="1" Classes="Basic" Cursor="Hand" Padding="0">
+										<TextBlock Grid.Column="0" Text="{Binding Id,Mode=TwoWay}"/>
+										<Button  Grid.Column="1" Classes="Basic" Cursor="Hand" Padding="0" Command="{Binding ((vm:ModelsViewModel)DataContext).DownloadCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Id}">
 											 <materialIcons:MaterialIcon Kind="ArrowDown"/>
 										</Button>
 									</Grid>
