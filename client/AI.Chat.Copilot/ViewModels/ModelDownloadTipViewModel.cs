@@ -15,9 +15,10 @@ namespace AI.Chat.Copilot.ViewModels
             pip install modelscope -i https://mirrors.aliyun.com/pypi/simple/
             ```
 
-            ### 2、下载命令行
+            ### 2、py 脚本
             ```
-            modelscope download --model '{0}' --include '*.json' --cache_dir '存放地址'
+            from modelscope.hub.snapshot_download import snapshot_download
+            snapshot_download(f'{0}', cache_dir='存储路径')
             ```
             
             """;

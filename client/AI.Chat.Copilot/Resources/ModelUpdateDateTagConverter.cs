@@ -12,7 +12,7 @@ namespace AI.Chat.Copilot.Resources
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if(value is DateTime time)
+            if (value is DateTime time)
             {
                 var diff = DateTime.Now.Subtract(time);
                 if ((int)diff.TotalDays < 0)
@@ -33,7 +33,7 @@ namespace AI.Chat.Copilot.Resources
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 }
