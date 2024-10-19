@@ -8,8 +8,7 @@
 			 xmlns:sk="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 			 xmlns:vm="using:AI.Chat.Copilot.ViewModels"
 			 x:DataType="vm:ModelsViewModel"
-			 xmlns:local="using:AI.Chat.Copilot.Resources"
-			 xmlns:model="using::AI.Chat.Copilot.Application">
+			 xmlns:local="using:AI.Chat.Copilot.Resources">
 	<UserControl.Resources>
 		<local:ModelUpdateDateTagConverter x:Key="ModelUpdateDateTagConverter" />
 		<local:NextNullConverter x:Key="NextNullConverter" />
@@ -68,7 +67,7 @@
 											<TextBlock Text="{Binding Downloads,Mode=TwoWay,Converter={StaticResource NumberToShortStringConverter}}"  ToolTip.Tip="{Binding Downloads,Mode=TwoWay}"></TextBlock>
 											<Label Content="·" VerticalAlignment="Center"></Label>
 											<materialIcons:MaterialIcon Kind="HeartOutline" Width="25" Height="20"/>
-											<TextBlock Text="{Binding Likes,Mode=TwoWay,Converter={StaticResource NumberToShortStringConverter}}}" 
+											<TextBlock Text="{Binding Likes,Mode=TwoWay,Converter={StaticResource NumberToShortStringConverter}}" 
 													   ToolTip.Tip="{Binding Likes,Mode=TwoWay}"></TextBlock>
 									</StackPanel>
 								</Grid>

@@ -11,7 +11,6 @@
              xmlns:vm="using:AI.Chat.Copilot.ViewModels"
              x:DataType="vm:ChatViewModel"
              xmlns:model="using:AI.Chat.Copilot.Domain.Models"
-			  xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
 			 xmlns:dataTemplates="using:AI.Chat.Copilot.DataTemplates"
 			 xmlns:rs="using:AI.Chat.Copilot.Resources"
 			 xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia">
