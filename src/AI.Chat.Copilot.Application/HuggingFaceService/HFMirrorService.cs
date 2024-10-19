@@ -25,7 +25,7 @@ namespace AI.Chat.Copilot.Application
             {
                 param = $"p={index}&";
             }
-            param += "sort=trending";
+            param += "sort=trending&withCount=true";
             if (!string.IsNullOrWhiteSpace(query))
             {
                 param += $"&search={query}";
