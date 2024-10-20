@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="client/AI.Chat.Copilot/Controls/Apps/Applications.axaml" value="client/AI.Chat.Copilot/AI.Chat.Copilot.csproj" />
+        <entry key="client/AI.Chat.Copilot/Controls/Chat/Chat.axaml" value="client/AI.Chat.Copilot/AI.Chat.Copilot.csproj" />
+        <entry key="client/AI.Chat.Copilot/Controls/GlobalSettings.axaml" value="client/AI.Chat.Copilot/AI.Chat.Copilot.csproj" />
+        <entry key="client/AI.Chat.Copilot/Controls/Models/Models.axaml" value="client/AI.Chat.Copilot/AI.Chat.Copilot.csproj" />
+        <entry key="client/AI.Chat.Copilot/Controls/Styles/GlobalStyles.axaml" value="client/AI.Chat.Copilot/AI.Chat.Copilot.csproj" />
+        <entry key="client/AI.Chat.Copilot/Views/ModelDownloadTip.axaml" value="client/AI.Chat.Copilot/AI.Chat.Copilot.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
