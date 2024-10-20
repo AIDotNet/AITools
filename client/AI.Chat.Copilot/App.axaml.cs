@@ -63,12 +63,17 @@ namespace AI.Chat.Copilot
             builder
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile( "appsettings.json", optional: true, reloadOnChange: true);
             Configuration = builder.Build();
+            
+            if (string.IsNullOrWhiteSpace(Configuration["DownloadPath"]))
+            {
+                Configuration["DownloadPath"] = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".cache");
+            }
             services.AddSingleton(Configuration);
             ServiceProvider = services.BuildServiceProvider();
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
             RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
             {
-                SukiHost.ShowToast("系统运行异常", $"Unhandled task exception: {ex.Message} {Environment.NewLine} {ex.InnerException?.Message}", TimeSpan.FromSeconds(20), () => Console.WriteLine(ex.Message));
+                SukiHost.ShowToast("閿欒鎻愮ず", $"Unhandled task exception: {ex.Message} {Environment.NewLine} {ex.InnerException?.Message}", TimeSpan.FromSeconds(20), () => Console.WriteLine(ex.Message));
             });
         }
         public override void OnFrameworkInitializationCompleted()
@@ -117,7 +122,7 @@ namespace AI.Chat.Copilot
         private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
         {
             e.SetObserved();
-            SukiHost.ShowToast("系统运行异常", $"Unhandled task exception: {e.Exception.Message}", TimeSpan.FromSeconds(20), () => Console.WriteLine("Toast clicked !"));
+            SukiHost.ShowToast("閿欒鎻愮ず", $"Unhandled task exception: {e.Exception.Message}", TimeSpan.FromSeconds(20), () => Console.WriteLine("Toast clicked !"));
         }
     }
 }

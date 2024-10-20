@@ -4,12 +4,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AI.Chat.Copilot.ModelDownloadTip"
-        Title="ModelDownloadTip"
-		xmlns:mdxaml="https://github.com/whistyun/Markdown.Avalonia.Tight"
-		xmlns:vm="using:AI.Chat.Copilot.ViewModels"
-		x:DataType="vm:ModelDownloadTipViewModel"
-		 WindowStartupLocation="CenterScreen"
-		 CanResize="False" Width="600" Height="300">
-  <mdxaml:MarkdownScrollViewer  SelectionEnabled="True" Margin="0,5,0,0" Markdown="{Binding MdText}">
-  </mdxaml:MarkdownScrollViewer>
+        Title="模型下载日志"
+        xmlns:mdxaml="https://github.com/whistyun/Markdown.Avalonia.Tight"
+        xmlns:sk="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        xmlns:vm="using:AI.Chat.Copilot.ViewModels"
+        x:DataType="vm:ModelDownloadTipViewModel"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False" Width="600" Height="500" Closing="Window_OnClosing">
+    <!-- <mdxaml:MarkdownScrollViewer  SelectionEnabled="True" Margin="0,5,0,0" Markdown="{Binding Logs}"> -->
+    <!-- </mdxaml:MarkdownScrollViewer> -->
+
+
+    <sk:GlassCard Padding="10,10,10,10" BorderBrush="Gray" Background="LightBlue" CornerRadius="1" Margin="10">
+        <ScrollViewer x:Name="ScrollViewer">
+            <ListBox ItemsSource="{Binding Logs,Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <SelectableTextBlock Text="{Binding Path=Msg,Mode=TwoWay}" TextWrapping="WrapWithOverflow"></SelectableTextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+    </sk:GlassCard>
+
 </Window>

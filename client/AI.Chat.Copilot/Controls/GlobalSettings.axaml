@@ -27,6 +27,12 @@
 					</DockPanel>
 				</Button>
 			</StackPanel>
+			
+			<Label Grid.Row="1" Grid.Column="0" Content="模型下载路径" VerticalContentAlignment="Center" /> 
+			<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+				<SelectableTextBlock x:Name="DownloadPath" Width="350" TextWrapping="Wrap" Margin="5,0,0,0" FontSize="16"></SelectableTextBlock>
+				<Button x:Name="BtnDownloadFolder" Click="BtnDownloadFolder_OnClick" Content="选择" Height="40" Width="50" Padding="5" HorizontalAlignment="Center"></Button>
+			</StackPanel>
 		</Grid>
 	</sk:GlassCard>
 </UserControl>

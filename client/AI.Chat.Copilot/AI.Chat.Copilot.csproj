@@ -32,6 +32,9 @@
     <None Remove="Assets\ai.jpg" />
     <None Remove="Assets\default-app.png" />
     <None Remove="Assets\GPT.png" />
+    <None Update="ms_download.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

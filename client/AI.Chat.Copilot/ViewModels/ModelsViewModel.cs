@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AI.Chat.Copilot.ViewModels
@@ -21,6 +22,7 @@ namespace AI.Chat.Copilot.ViewModels
         private string DownloadModelPath = "models";
 
         private string _query;
+
         public string Query
         {
             get => this._query;
@@ -36,11 +38,13 @@ namespace AI.Chat.Copilot.ViewModels
                         await QueryAsync("");
                     });
                 }
+
                 this.RaiseAndSetIfChanged(ref _query, value);
             }
         }
 
         private int _total;
+
         public int Total
         {
             get => _total;
@@ -48,13 +52,15 @@ namespace AI.Chat.Copilot.ViewModels
         }
 
         private int _page;
+
         public int Page
         {
             get => this._page;
-            set => this.RaiseAndSetIfChanged(ref _page,value);  
+            set => this.RaiseAndSetIfChanged(ref _page, value);
         }
 
         private int _currentPage;
+
         public int CurrentPage
         {
             get => _currentPage;
@@ -62,48 +68,53 @@ namespace AI.Chat.Copilot.ViewModels
         }
 
         private ObservableCollection<HfMirrorModel> _models;
+
         public ObservableCollection<HfMirrorModel> Models
         {
             get => _models;
             set => this.RaiseAndSetIfChanged(ref _models, value);
         }
+
         private int _num;
+
         public int Num
         {
             get => this._num;
-            set => this.RaiseAndSetIfChanged(ref  this._num, value);
+            set => this.RaiseAndSetIfChanged(ref this._num, value);
         }
+
         public ReactiveCommand<string, Unit> QueryCommand { get; set; }
         public ReactiveCommand<Unit, Unit> PreCommand { get; set; }
         public ReactiveCommand<Unit, Unit> NextCommand { get; set; }
-        public ReactiveCommand<string,Unit> DownloadCommand { get; set; }
+        public ReactiveCommand<string, Unit> DownloadCommand { get; set; }
+
         public ModelsViewModel()
         {
             Models = new ObservableCollection<HfMirrorModel>();
             QueryCommand = ReactiveCommand.CreateFromTask<string>(QueryAsync);
             PreCommand = ReactiveCommand.CreateFromTask(PreAsync);
             NextCommand = ReactiveCommand.CreateFromTask(NextAsync);
-            DownloadCommand = ReactiveCommand.Create<string>( model =>
+            DownloadCommand = ReactiveCommand.Create<string>(model =>
             {
                 using var scope = App.ServiceScope;
                 new ModelDownloadTip
                 {
-                    DataContext = new ModelDownloadTipViewModel()
-                    {
-                        MdText = string.Format(ModelDownloadTipViewModel.mdTemplate, model)
-                    }
+                    DataContext = new ModelDownloadTipViewModel(model)
                 }.Show(scope.Resolve<MainWindow>());
             });
         }
+
         private async Task PreAsync()
         {
-            if(CurrentPage - 1 < 0)
+            if (CurrentPage - 1 < 0)
             {
                 await SukiHost.ShowToast("提示", "已经是最前了", TimeSpan.FromSeconds(2));
                 return;
             }
-            await SearchAsync(Query, CurrentPage-1);
+
+            await SearchAsync(Query, CurrentPage - 1);
         }
+
         private async Task NextAsync()
         {
             if (CurrentPage + 1 > Page)
@@ -111,13 +122,16 @@ namespace AI.Chat.Copilot.ViewModels
                 await SukiHost.ShowToast("提示", "已经是到底了", TimeSpan.FromSeconds(2));
                 return;
             }
-            await SearchAsync(Query, CurrentPage+1);
+
+            await SearchAsync(Query, CurrentPage + 1);
         }
+
         private async Task QueryAsync(string keyword = "")
         {
             await SearchAsync(keyword);
         }
-        private async Task SearchAsync(string keyword = "",int pageIndex = 0)
+
+        private async Task SearchAsync(string keyword = "", int pageIndex = 0)
         {
             Models.Clear();
             using var scop = App.ServiceScope;
@@ -125,7 +139,7 @@ namespace AI.Chat.Copilot.ViewModels
             Models.AddRange(result.Models);
             Total = result.NumTotalItems;
             Page = (int)Math.Ceiling((decimal)result.NumTotalItems / result.NumItemsPerPage);
-            CurrentPage = result.PageIndex;
+            CurrentPage = result.PageIndex + 1;
             Num = result.NumItemsPerPage;
         }
     }
